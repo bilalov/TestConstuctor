@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace TestGenerator.Models
+namespace TestGenerator.Core.ViewModels
 {
     public class ExternalLoginConfirmationViewModel
     {

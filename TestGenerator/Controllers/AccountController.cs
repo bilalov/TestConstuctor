@@ -8,7 +8,8 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using TestGenerator.Models;
+using TestGenerator.Core.Models;
+using TestGenerator.Core.ViewModels;
 
 namespace TestGenerator.Controllers
 {
