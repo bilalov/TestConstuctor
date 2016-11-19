@@ -171,6 +171,10 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Core\Models\ApplicationUser.cs" />
+    <Compile Include="Core\Models\Test\Answer.cs" />
+    <Compile Include="Core\Models\Test\Question.cs" />
+    <Compile Include="Core\Models\Test\Test.cs" />
+    <Compile Include="Core\Models\Test\TestStatus.cs" />
     <Compile Include="Core\ViewModels\AccountViewModels.cs" />
     <Compile Include="Core\ViewModels\ManageViewModels.cs" />
     <Compile Include="Global.asax.cs">
@@ -179,6 +183,10 @@
     <Compile Include="Persistence\Migrations\201611192023577_InitialModel.cs" />
     <Compile Include="Persistence\Migrations\201611192023577_InitialModel.Designer.cs">
       <DependentUpon>201611192023577_InitialModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Persistence\Migrations\201611192153523_CreateTestTable.cs" />
+    <Compile Include="Persistence\Migrations\201611192153523_CreateTestTable.Designer.cs">
+      <DependentUpon>201611192153523_CreateTestTable.cs</DependentUpon>
     </Compile>
     <Compile Include="Persistence\Migrations\Configuration.cs" />
     <Compile Include="Persistence\ApplicationDbContext.cs" />
@@ -258,6 +266,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Persistence\Migrations\201611192023577_InitialModel.resx">
       <DependentUpon>201611192023577_InitialModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Persistence\Migrations\201611192153523_CreateTestTable.resx">
+      <DependentUpon>201611192153523_CreateTestTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
