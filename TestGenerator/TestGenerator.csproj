@@ -188,6 +188,10 @@
     <Compile Include="Persistence\Migrations\201611192153523_CreateTestTable.Designer.cs">
       <DependentUpon>201611192153523_CreateTestTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Persistence\Migrations\201611192321304_PopulateTestStatusTable.cs" />
+    <Compile Include="Persistence\Migrations\201611192321304_PopulateTestStatusTable.Designer.cs">
+      <DependentUpon>201611192321304_PopulateTestStatusTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Persistence\Migrations\Configuration.cs" />
     <Compile Include="Persistence\ApplicationDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -269,6 +273,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Persistence\Migrations\201611192153523_CreateTestTable.resx">
       <DependentUpon>201611192153523_CreateTestTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Persistence\Migrations\201611192321304_PopulateTestStatusTable.resx">
+      <DependentUpon>201611192321304_PopulateTestStatusTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
