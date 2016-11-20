@@ -1,16 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using Microsoft.AspNet.Identity;
 using System.Web.Mvc;
+using TestGenerator.Core;
+using TestGenerator.Core.ViewModels;
 
 namespace TestGenerator.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IUnitOfWork _unitOfWork;
+
+        public HomeController(IUnitOfWork unitOfWork)
+        {
+            _unitOfWork = unitOfWork;
+        }
+
         public ActionResult Index()
         {
-            return View();
+            var tests = _unitOfWork.Tests.GetAllTest();
+
+            var userId = User.Identity.GetUserId();
+
+            var viewModel = new TestsViewModel
+            {
+                Tests = tests,
+                Heading = "Все тесты",
+            };
+
+            return View("Tests", viewModel);
         }
 
         public ActionResult About()

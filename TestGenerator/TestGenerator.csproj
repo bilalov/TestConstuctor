@@ -229,6 +229,7 @@
     <Compile Include="Core\ViewModels\ManageViewModels.cs" />
     <Compile Include="Core\ViewModels\QuestionFormViewModel.cs" />
     <Compile Include="Core\ViewModels\TestFormViewModel.cs" />
+    <Compile Include="Core\ViewModels\TestsViewModel.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -326,6 +327,7 @@
     <Content Include="Views\Answers\View.cshtml" />
     <Content Include="Views\Shared\QuestionForm.cshtml" />
     <Content Include="Views\Tests\Mine.cshtml" />
+    <Content Include="Views\Home\Tests.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

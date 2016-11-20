@@ -28,5 +28,14 @@ namespace TestGenerator.Persistence.Repositories
                .Include(t => t.TestStatus)
                .ToList();
         }
+
+        public IEnumerable<Test> GetAllTest()
+        {
+            var tests = _context.Tests
+                .Include(g => g.Operator)
+                .Include(g => g.TestStatus).ToList();
+
+            return tests;
+        }
     }
 }
