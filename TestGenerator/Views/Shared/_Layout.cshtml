@@ -21,7 +21,20 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Создать тест", "Create", "Tests")</li>
+                    @if (@User.IsInRole("Администратор"))
+                    {
+                        <li>@Html.ActionLink("Управление новыми пользователями", "Sort", "Users")</li>
+                    }
+                    else if (@User.IsInRole("Оператор"))
+                    {
+                        <li>@Html.ActionLink("Создать тест", "Create", "Tests")</li>
+                    }
+                    else
+                    {
+                        <li>@Html.ActionLink("Тесты", "Create", "Tests")</li>
+                    }
+
+
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

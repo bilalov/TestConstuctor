@@ -211,6 +211,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\QuestionsController.cs" />
     <Compile Include="Controllers\TestsController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Core\IUnitOfWork.cs" />
     <Compile Include="Core\Models\ApplicationUser.cs" />
     <Compile Include="Core\Models\Test\Answer.cs" />
@@ -252,6 +253,18 @@
     <Compile Include="Persistence\Migrations\201611200057380_PopulateQuestionTypeTable.cs" />
     <Compile Include="Persistence\Migrations\201611200057380_PopulateQuestionTypeTable.Designer.cs">
       <DependentUpon>201611200057380_PopulateQuestionTypeTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Persistence\Migrations\201611202045334_AddColumnNickNameToUserTable.cs" />
+    <Compile Include="Persistence\Migrations\201611202045334_AddColumnNickNameToUserTable.Designer.cs">
+      <DependentUpon>201611202045334_AddColumnNickNameToUserTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Persistence\Migrations\201611202047485_PopulateUserRoleTable.cs" />
+    <Compile Include="Persistence\Migrations\201611202047485_PopulateUserRoleTable.Designer.cs">
+      <DependentUpon>201611202047485_PopulateUserRoleTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Persistence\Migrations\201611202058327_AddRootAdmin.cs" />
+    <Compile Include="Persistence\Migrations\201611202058327_AddRootAdmin.Designer.cs">
+      <DependentUpon>201611202058327_AddRootAdmin.cs</DependentUpon>
     </Compile>
     <Compile Include="Persistence\Migrations\Configuration.cs" />
     <Compile Include="Persistence\ApplicationDbContext.cs" />
@@ -333,6 +346,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Core\Dtos\" />
     <Folder Include="Views\Questions\" />
+    <Folder Include="Views\Users\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -354,6 +368,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Persistence\Migrations\201611200057380_PopulateQuestionTypeTable.resx">
       <DependentUpon>201611200057380_PopulateQuestionTypeTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Persistence\Migrations\201611202045334_AddColumnNickNameToUserTable.resx">
+      <DependentUpon>201611202045334_AddColumnNickNameToUserTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Persistence\Migrations\201611202047485_PopulateUserRoleTable.resx">
+      <DependentUpon>201611202047485_PopulateUserRoleTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Persistence\Migrations\201611202058327_AddRootAdmin.resx">
+      <DependentUpon>201611202058327_AddRootAdmin.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

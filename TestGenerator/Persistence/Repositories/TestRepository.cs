@@ -37,5 +37,14 @@ namespace TestGenerator.Persistence.Repositories
 
             return tests;
         }
+
+        public IEnumerable<Test> GetActiveTests(string getUserId)
+        {
+            var tests = _context.Tests
+                .Include(g => g.Operator)
+                .Include(g => g.TestStatus).ToList();
+
+            return tests;
+        }
     }
 }

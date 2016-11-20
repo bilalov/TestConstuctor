@@ -8,5 +8,6 @@ namespace TestGenerator.Core.Repositories
         void Add(Test test);
         IEnumerable<Test> GetTestsByOperator(string operatorId);
         IEnumerable<Test> GetAllTest();
+        IEnumerable<Test> GetActiveTests(string getUserId);
     }
 }

@@ -65,5 +65,10 @@ namespace TestGenerator.Controllers
 
             return View(gigs);
         }
+
+        public ActionResult Active()
+        {
+            return RedirectToAction("Index", "Home");
+        }
     }
 }

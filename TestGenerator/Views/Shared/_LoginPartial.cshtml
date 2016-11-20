@@ -10,7 +10,19 @@
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> @User.Identity.GetUserName()<span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                    <li><a href="@Url.Action("Mine", "Tests")">Мои тесты</a></li>
+                    @if (@User.IsInRole("Администратор"))
+                    {
+                        <li>@Html.ActionLink("Управление новыми пользователями", "Sort", "Users")</li>
+                    }
+                    else if (@User.IsInRole("Оператор"))
+                    {
+                        <li>@Html.ActionLink("Создать тест", "Create", "Tests")</li>
+                        <li><a href="@Url.Action("Mine", "Tests")">Мои тесты</a></li>
+                    }
+                    else
+                    {
+                        <li>@Html.ActionLink("Прорешиваемые тесты", "Active", "Tests")</li>
+                    }
                     <li role="separator" class="divider"></li>
                     <li><a href="javascript:document.getElementById('logoutForm').submit()">Выход</a></li>
                 </ul>
