@@ -24,7 +24,7 @@ namespace TestGenerator.Core.Models.Test
 
         public DateTime DateTime { get; set; }
 
-        [Required]
+        
         [Display(Name = "Статус теста::")]
         public TestStatus TestStatus { get; set; }
 

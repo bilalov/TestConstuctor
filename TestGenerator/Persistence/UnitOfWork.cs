@@ -28,7 +28,7 @@ namespace TestGenerator.Persistence
 
         public void Complete()
         {
-            
+            _context.SaveChanges();
         }
     }
 }

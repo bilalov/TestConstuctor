@@ -11,9 +11,10 @@ namespace TestGenerator.Core.ViewModels
 
         [Required]
         [DisplayName("Статус теста:")]
-        public TestStatus TestStatus { get; set; }
+        public byte TestStatus { get; set; }
 
         public IEnumerable<TestStatus> TestStatuses { get; set; }
+        public IEnumerable<QuestionType> TypeQuestions { get; set; }
 
         [Required]
         [StringLength(255)]

@@ -1,0 +1,30 @@
+﻿@model IEnumerable<TestGenerator.Core.Models.Test.Test>
+@{
+    ViewBag.Title = "Мои тесты";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Мои тесты</h2>
+<ul class="test voffset4">
+    @foreach (var test in Model)
+    {
+        <li>
+            <div class="date">
+                <div class="month">
+                    @test.DateTime.ToString("MMM")
+                </div>
+                <div class="day">
+                    @test.DateTime.ToString("d ")
+                </div>
+            </div>
+            <div class="details">
+                <span class="testName">
+                    @test.Name
+                </span>
+                <span class="testStatus">
+                    @test.TestStatus.Name
+                </span>
+            </div>
+        </li>
+    }
+</ul>

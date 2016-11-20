@@ -5,61 +5,30 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>@Model.Heading</h2>
-<form>
+<h2>Создать тест</h2>
+
+@using (Html.BeginForm("Create", "Tests"))
+{
+    @Html.AntiForgeryToken()
     <div class="form-group">
         @Html.LabelFor(m => m.Name)
         @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Name)
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.Description)
         @Html.TextAreaFor(m => m.Description, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Description)
     </div>
-    <div class="question" id="questionContainer">
-        <div class="questionContainer">    
-        </div>
-        <div class="answerContainer">
-        </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.TestStatus)
+        @Html.DropDownListFor(m => m.TestStatus, new SelectList(Model.TestStatuses, "Id", "Name"), "", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.TestStatus)
     </div>
-        <button id="newQuestion" type="button">Новый вопрос</button>
-        <div class="form-group">
-            @Html.LabelFor(m => m.TestStatus)
-            @Html.DropDownListFor(m => m.TestStatus, new SelectList(Model.TestStatuses, "Id", "Name"), "", new { @class = "form-control" })
-        </div>
-        <button type="submit" class="btn btn-primary">Сохранить</button>
-    </form>
-
+    <button type="submit" class="btn btn-primary">Save</button>
+}
 
 @section scripts
 {
-    <script>
-        var question = 0;
-        $(document).ready(function () {
-            
-           
-
-            $("#newQuestion").click(function(e) {
-
-                 $.get("@Url.Action("Create", "Questions")", function(data) {
-                 $(".questionContainer").append(data);
-                });
-
-                
-            });
-        });
-        $(document).on("click", ".clas32", function (e) {
-            $.get("@Url.Action("Create", "Answers")", function(data) {
-
-
-                $(".answerContainer").append(data);
-
-
-            });
-        });
-
-
-    </script>
-
-
+    @Scripts.Render("~/bundles/jqueryval")
 }
-
