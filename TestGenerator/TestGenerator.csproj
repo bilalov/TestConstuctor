@@ -214,6 +214,7 @@
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Core\IUnitOfWork.cs" />
     <Compile Include="Core\Models\ApplicationUser.cs" />
+    <Compile Include="Core\Models\Test\Passing.cs" />
     <Compile Include="Core\Models\Test\Answer.cs" />
     <Compile Include="Core\Models\Test\Question.cs" />
     <Compile Include="Core\Models\Test\QuestionType.cs" />
@@ -234,6 +235,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Persistence\IApplicationDbContext.cs" />
     <Compile Include="Persistence\Migrations\201611192023577_InitialModel.cs" />
     <Compile Include="Persistence\Migrations\201611192023577_InitialModel.Designer.cs">
       <DependentUpon>201611192023577_InitialModel.cs</DependentUpon>
@@ -262,9 +264,9 @@
     <Compile Include="Persistence\Migrations\201611202047485_PopulateUserRoleTable.Designer.cs">
       <DependentUpon>201611202047485_PopulateUserRoleTable.cs</DependentUpon>
     </Compile>
-    <Compile Include="Persistence\Migrations\201611202058327_AddRootAdmin.cs" />
-    <Compile Include="Persistence\Migrations\201611202058327_AddRootAdmin.Designer.cs">
-      <DependentUpon>201611202058327_AddRootAdmin.cs</DependentUpon>
+    <Compile Include="Persistence\Migrations\201611202310201_AddPassingTestTable.cs" />
+    <Compile Include="Persistence\Migrations\201611202310201_AddPassingTestTable.Designer.cs">
+      <DependentUpon>201611202310201_AddPassingTestTable.cs</DependentUpon>
     </Compile>
     <Compile Include="Persistence\Migrations\Configuration.cs" />
     <Compile Include="Persistence\ApplicationDbContext.cs" />
@@ -375,8 +377,8 @@
     <EmbeddedResource Include="Persistence\Migrations\201611202047485_PopulateUserRoleTable.resx">
       <DependentUpon>201611202047485_PopulateUserRoleTable.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Persistence\Migrations\201611202058327_AddRootAdmin.resx">
-      <DependentUpon>201611202058327_AddRootAdmin.cs</DependentUpon>
+    <EmbeddedResource Include="Persistence\Migrations\201611202310201_AddPassingTestTable.resx">
+      <DependentUpon>201611202310201_AddPassingTestTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

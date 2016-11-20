@@ -7,13 +7,13 @@ namespace TestGenerator.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class AddRootAdmin : IMigrationMetadata
+    public sealed partial class AddPassingTestTable : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddRootAdmin));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(AddPassingTestTable));
         
         string IMigrationMetadata.Id
         {
-            get { return "201611202058327_AddRootAdmin"; }
+            get { return "201611202310201_AddPassingTestTable"; }
         }
         
         string IMigrationMetadata.Source

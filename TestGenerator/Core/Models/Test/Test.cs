@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace TestGenerator.Core.Models.Test
@@ -32,6 +33,13 @@ namespace TestGenerator.Core.Models.Test
         public byte TestStatusId { get; set; }
 
         public ICollection<Question> Questions { get; set; }
+
+        public ICollection<Passing> Passings { get; private set; }
+
+        public Test()
+        {
+            Passings = new Collection<Passing>();
+        }
 
     }
 }
