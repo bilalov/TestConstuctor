@@ -9,16 +9,15 @@ namespace TestGenerator.Core.Models.Test
 
         [Required]
         [StringLength(1000)]
+        [Display(Name = "Текст вопроса:")]
         public string Text { get; set; }
 
-        public QuestionType Type { get; set; }
+        [Required]
+        public byte QuestionTypeId { get; set; }
+
+        [Display(Name = "Тип теста:")]
+        public QuestionType QuestionType { get; set; }
 
         public ICollection<Answer> Answers { get; set; } 
-    }
-
-    public enum QuestionType
-    {
-        AnswerChoosing = 1,
-        AnswerWriting = 2
     }
 }

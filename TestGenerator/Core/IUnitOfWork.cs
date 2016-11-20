@@ -9,6 +9,7 @@ namespace TestGenerator.Core
         IApplicationUserRepository Users { get; }
         ITestRepository Tests { get; }
         ITestStatusRepository TestStatuses { get; }
+        IQuestionTypeRepository QuestionTypes { get; }
         void Complete();
     }
 }

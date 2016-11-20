@@ -15,13 +15,17 @@ namespace TestGenerator.Core.Models.Test
 
         [Required]
         [StringLength(255)]
+        [Display(Name = "Название теста:")]
         public string Name { get; set; }
 
         [StringLength(1000)]
+        [Display(Name = "Описание теста:")]
         public string Description { get; set; }
 
         public DateTime DateTime { get; set; }
 
+        [Required]
+        [Display(Name = "Статус теста::")]
         public TestStatus TestStatus { get; set; }
 
         [Required]

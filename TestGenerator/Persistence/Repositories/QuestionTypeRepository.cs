@@ -5,18 +5,17 @@ using TestGenerator.Core.Repositories;
 
 namespace TestGenerator.Persistence.Repositories
 {
-    public class TestStatusRepository: ITestStatusRepository
+    public class QuestionTypeRepository: IQuestionTypeRepository
     {
         private readonly ApplicationDbContext _context;
 
-        public TestStatusRepository(ApplicationDbContext context)
+        public QuestionTypeRepository(ApplicationDbContext context)
         {
             _context = context;
         }
-
-        public IEnumerable<TestStatus> GetStatuses()
+        public IEnumerable<QuestionType> GetTypes()
         {
-            return _context.TestStatuses.ToList();
+            return _context.QuestionTypes.ToList();
         }
     }
 }

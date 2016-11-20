@@ -12,6 +12,7 @@ namespace TestGenerator.Persistence
         {
             _context = context;
             Answers = new AnswerRepository(context);
+            QuestionTypes = new QuestionTypeRepository(context);
             Questions = new QuestionRepository(context);
             Users = new ApplicationUserRepository(context);
             Tests = new TestRepository(context);
@@ -23,6 +24,7 @@ namespace TestGenerator.Persistence
         public IApplicationUserRepository Users { get; }
         public ITestRepository Tests { get; }
         public ITestStatusRepository TestStatuses { get; }
+        public IQuestionTypeRepository QuestionTypes { get; }
 
         public void Complete()
         {

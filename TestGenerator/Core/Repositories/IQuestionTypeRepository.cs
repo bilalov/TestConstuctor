@@ -3,8 +3,8 @@ using TestGenerator.Core.Models.Test;
 
 namespace TestGenerator.Core.Repositories
 {
-    public interface ITestStatusRepository
+    public interface IQuestionTypeRepository
     {
-       IEnumerable<TestStatus> GetStatuses();
+        IEnumerable<QuestionType> GetTypes();
     }
 }

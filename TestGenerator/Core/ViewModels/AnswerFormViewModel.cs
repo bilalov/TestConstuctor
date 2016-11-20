@@ -1,10 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace TestGenerator.Core.Models.Test
+namespace TestGenerator.Core.ViewModels
 {
-    public class Answer
+    public class AnswerFormViewModel
     {
-        public int Id { get; set; }
 
         [Required]
         [StringLength(100)]

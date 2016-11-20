@@ -1,0 +1,65 @@
+﻿@using TestGenerator.Core.ViewModels
+@model TestGenerator.Core.ViewModels.TestFormViewModel
+@{
+    ViewBag.Title = @Model.Heading;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Model.Heading</h2>
+<form>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Name)
+        @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Description)
+        @Html.TextAreaFor(m => m.Description, new { @class = "form-control" })
+    </div>
+    <div class="question" id="questionContainer">
+        <div class="questionContainer">    
+        </div>
+        <div class="answerContainer">
+        </div>
+    </div>
+        <button id="newQuestion" type="button">Новый вопрос</button>
+        <div class="form-group">
+            @Html.LabelFor(m => m.TestStatus)
+            @Html.DropDownListFor(m => m.TestStatus, new SelectList(Model.TestStatuses, "Id", "Name"), "", new { @class = "form-control" })
+        </div>
+        <button type="submit" class="btn btn-primary">Сохранить</button>
+    </form>
+
+
+@section scripts
+{
+    <script>
+        var question = 0;
+        $(document).ready(function () {
+            
+           
+
+            $("#newQuestion").click(function(e) {
+
+                 $.get("@Url.Action("Create", "Questions")", function(data) {
+                 $(".questionContainer").append(data);
+                });
+
+                
+            });
+        });
+        $(document).on("click", ".clas32", function (e) {
+            $.get("@Url.Action("Create", "Answers")", function(data) {
+
+
+                $(".answerContainer").append(data);
+
+
+            });
+        });
+
+
+    </script>
+
+
+}
+

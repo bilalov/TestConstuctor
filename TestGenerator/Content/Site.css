@@ -22,3 +22,11 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.question {
+    border: 2px solid #4169e1;
+}
+
+.answer {
+    border: 2px solid #008000;
+}

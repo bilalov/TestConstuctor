@@ -205,21 +205,30 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AnswersController.cs" />
+    <Compile Include="Controllers\api\AnswersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\QuestionsController.cs" />
+    <Compile Include="Controllers\TestsController.cs" />
     <Compile Include="Core\IUnitOfWork.cs" />
     <Compile Include="Core\Models\ApplicationUser.cs" />
     <Compile Include="Core\Models\Test\Answer.cs" />
     <Compile Include="Core\Models\Test\Question.cs" />
+    <Compile Include="Core\Models\Test\QuestionType.cs" />
     <Compile Include="Core\Models\Test\Test.cs" />
     <Compile Include="Core\Models\Test\TestStatus.cs" />
     <Compile Include="Core\Repositories\IAnswerRepository.cs" />
     <Compile Include="Core\Repositories\IApplicationUserRepository.cs" />
     <Compile Include="Core\Repositories\IQuestionRepository.cs" />
+    <Compile Include="Core\Repositories\IQuestionTypeRepository.cs" />
     <Compile Include="Core\Repositories\ITestRepository.cs" />
     <Compile Include="Core\Repositories\ITestStatusRepository.cs" />
     <Compile Include="Core\ViewModels\AccountViewModels.cs" />
+    <Compile Include="Core\ViewModels\AnswerFormViewModel.cs" />
     <Compile Include="Core\ViewModels\ManageViewModels.cs" />
+    <Compile Include="Core\ViewModels\QuestionFormViewModel.cs" />
+    <Compile Include="Core\ViewModels\TestFormViewModel.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -235,11 +244,20 @@
     <Compile Include="Persistence\Migrations\201611192321304_PopulateTestStatusTable.Designer.cs">
       <DependentUpon>201611192321304_PopulateTestStatusTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Persistence\Migrations\201611200056351_AddQuestionTypeTable.cs" />
+    <Compile Include="Persistence\Migrations\201611200056351_AddQuestionTypeTable.Designer.cs">
+      <DependentUpon>201611200056351_AddQuestionTypeTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Persistence\Migrations\201611200057380_PopulateQuestionTypeTable.cs" />
+    <Compile Include="Persistence\Migrations\201611200057380_PopulateQuestionTypeTable.Designer.cs">
+      <DependentUpon>201611200057380_PopulateQuestionTypeTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Persistence\Migrations\Configuration.cs" />
     <Compile Include="Persistence\ApplicationDbContext.cs" />
     <Compile Include="Persistence\Repositories\AnswerRepository.cs" />
     <Compile Include="Persistence\Repositories\ApplicationUserRepository.cs" />
     <Compile Include="Persistence\Repositories\QuestionRepository.cs" />
+    <Compile Include="Persistence\Repositories\QuestionTypeRepository.cs" />
     <Compile Include="Persistence\Repositories\TestRepository.cs" />
     <Compile Include="Persistence\Repositories\TestStatusRepository.cs" />
     <Compile Include="Persistence\UnitOfWork.cs" />
@@ -304,11 +322,14 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Tests\Create.cshtml" />
+    <Content Include="Views\Answers\View.cshtml" />
+    <Content Include="Views\Shared\QuestionForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Core\Dtos\" />
-    <Folder Include="Views\Tests\" />
+    <Folder Include="Views\Questions\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -324,6 +345,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Persistence\Migrations\201611192321304_PopulateTestStatusTable.resx">
       <DependentUpon>201611192321304_PopulateTestStatusTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Persistence\Migrations\201611200056351_AddQuestionTypeTable.resx">
+      <DependentUpon>201611200056351_AddQuestionTypeTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Persistence\Migrations\201611200057380_PopulateQuestionTypeTable.resx">
+      <DependentUpon>201611200057380_PopulateQuestionTypeTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
