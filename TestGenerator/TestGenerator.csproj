@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
@@ -25,6 +26,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TypeScriptToolsVersion>1.8</TypeScriptToolsVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -204,16 +206,20 @@
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AnswersController.cs" />
     <Compile Include="Controllers\api\AnswersController.cs" />
+    <Compile Include="Controllers\api\UsersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\QuestionsController.cs" />
     <Compile Include="Controllers\TestsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="Core\Dtos\AddingUserDto.cs" />
     <Compile Include="Core\IUnitOfWork.cs" />
     <Compile Include="Core\Models\ApplicationUser.cs" />
+    <Compile Include="Core\Models\Role.cs" />
     <Compile Include="Core\Models\Test\Passing.cs" />
     <Compile Include="Core\Models\Test\Answer.cs" />
     <Compile Include="Core\Models\Test\Question.cs" />
@@ -224,6 +230,7 @@
     <Compile Include="Core\Repositories\IApplicationUserRepository.cs" />
     <Compile Include="Core\Repositories\IQuestionRepository.cs" />
     <Compile Include="Core\Repositories\IQuestionTypeRepository.cs" />
+    <Compile Include="Core\Repositories\IRoleRepository.cs" />
     <Compile Include="Core\Repositories\ITestRepository.cs" />
     <Compile Include="Core\Repositories\ITestStatusRepository.cs" />
     <Compile Include="Core\ViewModels\AccountViewModels.cs" />
@@ -232,6 +239,9 @@
     <Compile Include="Core\ViewModels\QuestionFormViewModel.cs" />
     <Compile Include="Core\ViewModels\TestFormViewModel.cs" />
     <Compile Include="Core\ViewModels\TestsViewModel.cs" />
+    <Compile Include="Core\ViewModels\UsersViewModel.cs" />
+    <Compile Include="Core\ViewModels\UserViewModel.cs" />
+    <Compile Include="Extensions\IdentityExtensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -268,12 +278,17 @@
     <Compile Include="Persistence\Migrations\201611202310201_AddPassingTestTable.Designer.cs">
       <DependentUpon>201611202310201_AddPassingTestTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Persistence\Migrations\201611202335599_AddColumnApproveInUserTable.cs" />
+    <Compile Include="Persistence\Migrations\201611202335599_AddColumnApproveInUserTable.Designer.cs">
+      <DependentUpon>201611202335599_AddColumnApproveInUserTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Persistence\Migrations\Configuration.cs" />
     <Compile Include="Persistence\ApplicationDbContext.cs" />
     <Compile Include="Persistence\Repositories\AnswerRepository.cs" />
     <Compile Include="Persistence\Repositories\ApplicationUserRepository.cs" />
     <Compile Include="Persistence\Repositories\QuestionRepository.cs" />
     <Compile Include="Persistence\Repositories\QuestionTypeRepository.cs" />
+    <Compile Include="Persistence\Repositories\RoleRepository.cs" />
     <Compile Include="Persistence\Repositories\TestRepository.cs" />
     <Compile Include="Persistence\Repositories\TestStatusRepository.cs" />
     <Compile Include="Persistence\UnitOfWork.cs" />
@@ -287,6 +302,7 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\bootbox.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
@@ -340,15 +356,14 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Tests\Create.cshtml" />
     <Content Include="Views\Answers\View.cshtml" />
-    <Content Include="Views\Shared\QuestionForm.cshtml" />
+    <Content Include="Views\Questions\QuestionForm.cshtml" />
     <Content Include="Views\Tests\Mine.cshtml" />
     <Content Include="Views\Home\Tests.cshtml" />
+    <Content Include="Views\Account\Success.cshtml" />
+    <Content Include="Views\Users\Sort.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Core\Dtos\" />
-    <Folder Include="Views\Questions\" />
-    <Folder Include="Views\Users\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -380,12 +395,19 @@
     <EmbeddedResource Include="Persistence\Migrations\201611202310201_AddPassingTestTable.resx">
       <DependentUpon>201611202310201_AddPassingTestTable.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Persistence\Migrations\201611202335599_AddColumnApproveInUserTable.resx">
+      <DependentUpon>201611202335599_AddColumnApproveInUserTable.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
   <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">

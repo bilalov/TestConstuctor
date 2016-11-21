@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using System.Linq;
 using System.Web.Mvc;
 using TestGenerator.Core;
+using TestGenerator.Core.ViewModels;
 
 namespace TestGenerator.Controllers
 {
@@ -16,9 +17,24 @@ namespace TestGenerator.Controllers
 
         public ActionResult Sort()
         {
-           var test = _unitOfWork.Tests.GetActiveTests(User.Identity.GetUserId());
+            var users = _unitOfWork.Users.GetUnActivateUsers();
+            var roles = _unitOfWork.Roles.GetAllRoles();
+            var userViewModels = users.Select(user => new UserViewModel()
+            {
+                NickName = user.NickName,
+                UserName = user.UserName,
+                Roles = roles,
+                Id = user.Id
+            }).ToList();
 
-            return RedirectToAction("Index", "Home");
+            var viewModel = new UsersViewModel()
+            {
+                Heading = "Управление новыми пользователями",
+                Users = userViewModels,
+            
+            };
+
+            return View("Sort", viewModel);
         }
     }
 }

@@ -12,7 +12,7 @@ namespace TestGenerator.Persistence
         public DbSet<TestStatus> TestStatuses { get; set; }
         public DbSet<QuestionType> QuestionTypes { get; set; }
         public DbSet<Test> Tests { get; set; } 
-        public DbSet<Passing> Passings { get; set; } 
+        public DbSet<Passing> Passings { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)

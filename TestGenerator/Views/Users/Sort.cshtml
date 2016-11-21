@@ -1,0 +1,135 @@
+﻿@model TestGenerator.Core.ViewModels.UsersViewModel
+@{
+    ViewBag.Title = Model.Heading;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3>@Model.Heading</h3>
+<div class="table-responsive">
+    <table class="table table-striped table-condensed table-hover">
+        <tr>
+            <th>
+                Логин
+            </th>
+            <th>
+                Никнейм
+            </th>
+            <th>
+                Роль
+            </th>
+        </tr>
+        <tbody>
+        @foreach (var user in Model.Users)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => user.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => user.NickName)
+                </td>
+                <td>
+                    @Html.DropDownListFor(u => user.Id, new SelectList(user.Roles, "Id", "Name", 1), new { @id = user.Id })
+                </td>
+                <td>
+                    <div class="actions">
+                        <a href="#" class="js-add-user" data-user-id="@user.Id">
+                            Добавить
+                        </a>
+                    </div>
+                </td>
+                <td>
+                    <div class="actions">
+                        <a href="#" class="js-remove-user" data-user-id="@user.Id">
+                            Удалить
+                        </a>
+                    </div>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $(".js-remove-user").click(function (e) {
+                var link = $(e.target);
+
+                bootbox.dialog({
+                    message: "Удалить пользователя?",
+                    title: "Удаление пользователя",
+                    buttons: {
+                        no: {
+                            label: "Отмена",
+                            className: "btn-default",
+                            callback: function () {
+                                bootbox.hideAll();
+                            }
+                        },
+                        yes: {
+                            label: "Удалить",
+                            className: "btn-danger",
+                            callback: function () {
+                                $.ajax({
+                                    url: "/api/users/" + link.attr("data-user-id"),
+                                    method: "DELETE"
+                                })
+                                .done(function () {
+                                    link.parents("tr").fadeOut(function () {
+                                        $(this).remove();
+                                    });
+                                })
+                                .fail(function () {
+                                    alert("Something failed!");
+                                });
+                            }
+                        }
+                    }
+                });
+            });
+
+            $(".js-add-user").click(function (e) {
+                var link = $(e.target);
+                var userId = link.attr("data-user-id");
+                var userIdSelector = "#" + userId;
+                var role = $(userIdSelector).children("option:selected").text();
+               // var role = $("#0b04ee86-bcf0-4003-9c09-6f12135a9e8a option:selected").text();
+
+                bootbox.dialog({
+                    message: "Добавить пользователя?",
+                    title: "Добавление пользователя",
+                    buttons: {
+                        no: {
+                            label: "Отмена",
+                            className: "btn-default",
+                            callback: function () {
+                                bootbox.hideAll();
+                            }
+                        },
+                        yes: {
+                            label: "Добавить",
+                            className: "btn-info",
+                            callback: function () {
+                                $.ajax({
+                                    url: "/api/users/",
+                                    method: "POST",
+                                    data: {Role: role, Id: userId}
+                                })
+                                .done(function () {
+                                    link.parents("tr").fadeOut(function () {
+                                        $(this).remove();
+                                    });
+                                })
+                                .fail(function () {
+                                    alert("Somethings failed!");
+                                });
+                            }
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+}

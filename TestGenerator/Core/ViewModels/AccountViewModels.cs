@@ -49,16 +49,16 @@ namespace TestGenerator.Core.ViewModels
     public class LoginViewModel
     {
         [Required]
-        [Display(Name = "Email")]
+        [Display(Name = "Почта")]
         [EmailAddress]
         public string Email { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "Пароль")]
         public string Password { get; set; }
 
-        [Display(Name = "Remember me?")]
+        [Display(Name = "Запомнить данные?")]
         public bool RememberMe { get; set; }
     }
 

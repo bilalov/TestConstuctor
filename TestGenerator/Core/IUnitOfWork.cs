@@ -10,6 +10,7 @@ namespace TestGenerator.Core
         ITestRepository Tests { get; }
         ITestStatusRepository TestStatuses { get; }
         IQuestionTypeRepository QuestionTypes { get; }
+        IRoleRepository Roles { get; }
         void Complete();
     }
 }
