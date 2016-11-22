@@ -29,7 +29,7 @@
                     @Html.DisplayFor(modelItem => user.NickName)
                 </td>
                 <td>
-                    @Html.DropDownListFor(u => user.Id, new SelectList(user.Roles, "Id", "Name", 1), new { @id = user.Id })
+                    @Html.DropDownListFor(u => user.Id, new SelectList(user.Roles, "Id", "Name", 1), new { @id = user.Id})
                 </td>
                 <td>
                     <div class="actions">

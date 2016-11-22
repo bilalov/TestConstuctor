@@ -215,6 +215,7 @@
     <Compile Include="Controllers\api\UsersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\PermissionsController.cs" />
     <Compile Include="Controllers\QuestionsController.cs" />
     <Compile Include="Controllers\TestsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
@@ -240,6 +241,7 @@
     <Compile Include="Core\ViewModels\AccountViewModels.cs" />
     <Compile Include="Core\ViewModels\AnswerFormViewModel.cs" />
     <Compile Include="Core\ViewModels\ManageViewModels.cs" />
+    <Compile Include="Core\ViewModels\PermissionsViewModel.cs" />
     <Compile Include="Core\ViewModels\QuestionFormViewModel.cs" />
     <Compile Include="Core\ViewModels\TestFormViewModel.cs" />
     <Compile Include="Core\ViewModels\TestsForUserViewModel.cs" />
@@ -250,6 +252,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\PermissionTypesDisplayConventer.cs" />
     <Compile Include="Persistence\IApplicationDbContext.cs" />
     <Compile Include="Persistence\Migrations\201611192023577_InitialModel.cs" />
     <Compile Include="Persistence\Migrations\201611192023577_InitialModel.Designer.cs">
@@ -374,6 +377,8 @@
     <Content Include="Views\Tests\Solicite.cshtml" />
     <Content Include="Views\Tests\Unsolicite.cshtml" />
     <Content Include="Views\Tests\Waiting.cshtml" />
+    <Content Include="Views\Permissions\Index.cshtml" />
+    <Content Include="Views\Tests\Questions\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -18,7 +18,7 @@ namespace TestGenerator.Persistence
             Tests = new TestRepository(context);
             TestStatuses = new TestStatusRepository(context);    
             Roles = new RoleRepository(context);   
-            Permissions = new PermissionRepository(context);   
+            Permissions = new PermissionRepository(context);  
         }
 
         public IAnswerRepository Answers { get; }

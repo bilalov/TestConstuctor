@@ -9,8 +9,6 @@ namespace TestGenerator.Core.Models.Test
 
         public ApplicationUser User { get; set; }
 
-        public PermissionType Type { get; set; }
-
         [Key]
         [Column(Order = 1)]
         public int TestId { get; set; }
@@ -18,5 +16,7 @@ namespace TestGenerator.Core.Models.Test
         [Key]
         [Column(Order = 2)]
         public string UserId { get; set; }
+
+        public PermissionType Type { get; set; }
     }
 }

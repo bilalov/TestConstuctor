@@ -11,6 +11,5 @@ namespace TestGenerator.Persistence
         DbSet<QuestionType> QuestionTypes { get; set; }
         DbSet<Test> Tests { get; set; }
         DbSet<PermissionForTest> Permissions { get; set; }
-
     }
 }

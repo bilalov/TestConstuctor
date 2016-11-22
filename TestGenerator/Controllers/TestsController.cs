@@ -72,7 +72,7 @@ namespace TestGenerator.Controllers
         {
             var userId = User.Identity.GetUserId();
             var solicitedTests = _unitOfWork.Tests.GetSolicitedTest(userId);
-            var permissions = _unitOfWork.Permissions.GetPermissions(userId);
+            var permissions = _unitOfWork.Permissions.GetPermissionsByUser(userId);
 
             var viewModel = new TestsForUserViewModel()
             {
@@ -88,7 +88,7 @@ namespace TestGenerator.Controllers
         {
             var userId = User.Identity.GetUserId();
             var unsolicitedTests = _unitOfWork.Tests.GetUnsolicitedTest(userId);
-            var permissions = _unitOfWork.Permissions.GetPermissions(userId);
+            var permissions = _unitOfWork.Permissions.GetPermissionsByUser(userId);
 
             var viewModel = new TestsForUserViewModel()
             {
@@ -104,7 +104,7 @@ namespace TestGenerator.Controllers
         {
             var userId = User.Identity.GetUserId();
             var waitingTests = _unitOfWork.Tests.GetWaitingTest(userId);
-            var permissions = _unitOfWork.Permissions.GetPermissions(userId);
+            var permissions = _unitOfWork.Permissions.GetPermissionsByUser(userId);
 
             var viewModel = new TestsForUserViewModel()
             {

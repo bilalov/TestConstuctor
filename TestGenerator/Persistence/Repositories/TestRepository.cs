@@ -64,7 +64,7 @@ namespace TestGenerator.Persistence.Repositories
         public IEnumerable<Test> GetSolicitedTest(string userId)
         {
             return _context.Permissions
-               .Where(a => a.UserId == userId && a.Type == PermissionType.AccessAllowed)
+               .Where(a => a.UserId == userId && a.Type == PermissionType.InWait)
                .Select(a => a.Test).Where(t => t.TestStatusId == 1)
                .Include(g => g.TestStatus)
                .Include(t => t.Operator)

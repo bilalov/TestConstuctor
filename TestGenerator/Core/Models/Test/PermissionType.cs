@@ -1,9 +1,14 @@
-﻿namespace TestGenerator.Core.Models.Test
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace TestGenerator.Core.Models.Test
 {
     public enum PermissionType
     {
+        [Display(Name = "В ожидании")]
         InWait = 1,
+        [Display(Name = "Доступ запрещен")]
         AccessDenied = 2,
-        AccessAllowed = 3
+        [Display(Name = "Доступ разрешен")]
+        AccessAllowed = 3,
     }
 }

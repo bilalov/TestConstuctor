@@ -1,0 +1,94 @@
+﻿@model TestGenerator.Core.ViewModels.PermissionsViewModel
+@{
+    ViewBag.Title = "InWait";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<table class="table table-striped table-condensed table-hover">
+    <tbody>
+        <tr>
+            <td style="width: 240px">
+                @Html.ActionLink("Активные заявки", "InWait", "Permissions")
+            </td>
+            <td style="width: 240px">
+                @Html.ActionLink("Разрешенные заявки", "Allow", "Permissions")
+            </td>
+            <td>
+                @Html.ActionLink("Отклоненные заявки", "Deny", "Permissions")
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<h2>@Model.Heading</h2>
+<div class="table-responsive">
+    <table class="table table-striped table-condensed table-hover">
+        <tr>
+            <th>
+                Пользователь
+            </th>
+            <th>
+                Тест
+            </th>
+            <th>
+                Статус запроса
+            </th>
+            <th>
+               
+            </th>
+        </tr>
+        <tbody>
+            @foreach (var permission in Model.Permissions)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => permission.User.NickName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => permission.Test.Name)
+                    </td>
+                    <td>
+                        @Html.DropDownListFor(u => permission.Type, Model.Types, new { @id = permission.TestId, @class = permission.UserId })
+                    </td>
+                    <td>
+                        <div class="actions">
+                            <a href="#" class="js-set-permission" data-test-id="@permission.TestId" data-user-id="@permission.UserId">
+                                Установить
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+@section scripts
+{
+    <script>
+        $(document).ready(function() {
+            $(".js-set-permission").click(function(e) {
+                var link = $(e.target);
+                var testId = link.attr("data-test-id");
+                var userId = link.attr("data-user-id");
+                var id = '#' + testId;
+                var classId = '.' + userId;
+                var idName = id + classId;
+                var type = $(idName).children("option:selected").text();
+
+                $.ajax({
+                    url: "/api/permissions/",
+                    method: "PUT",
+                    data: { testId: testId, userId: userId, type: type  }
+                })
+                .done(function () {
+                    link.parents("tr").fadeOut(function () {
+                        $(this).remove();
+                    });
+                })
+                .fail(function () {
+                    alert("Somethings failed!");
+                });
+            });
+        });
+    </script>
+}
