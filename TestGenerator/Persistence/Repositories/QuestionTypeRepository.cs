@@ -7,9 +7,9 @@ namespace TestGenerator.Persistence.Repositories
 {
     public class QuestionTypeRepository: IQuestionTypeRepository
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IApplicationDbContext _context;
 
-        public QuestionTypeRepository(ApplicationDbContext context)
+        public QuestionTypeRepository(IApplicationDbContext context)
         {
             _context = context;
         }

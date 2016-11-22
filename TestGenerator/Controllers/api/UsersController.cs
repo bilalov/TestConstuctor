@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNet.Identity;
 using System.Linq;
 using System.Web.Http;
+using Microsoft.AspNet.Identity;
 using TestGenerator.Core;
 using TestGenerator.Core.Dtos;
 
@@ -46,12 +46,6 @@ namespace TestGenerator.Controllers.api
                 return BadRequest("The user already has role.");
 
             _unitOfWork.Roles.Add(dto.Id, dto.Role);
-           /* attendance = new Attendance
-            {
-                GigId = dto.GigId,
-                AttendeeId = userId
-            };
-            _unitOfWork.Attendances.Add(attendance);*/
 
             user.Approve();
 

@@ -5,23 +5,23 @@
 <h1>@Model.Heading</h1>
 
 <ul id="tests" class="tests voffset4">
-    @foreach (var gig in Model.Tests)
+    @foreach (var test in Model.Tests)
     {
         <li>
             <div class="date">
                 <div class="month">
-                    @gig.DateTime.ToString("MMM")
+                    @test.DateTime.ToString("MMM")
                 </div>
                 <div class="day">
-                    @gig.DateTime.ToString("d ")
+                    @test.DateTime.ToString("d ")
                 </div>
             </div>
             <div class="details">
                 <span class="operator">
-                     @gig.Operator.UserName
+                     @test.Name
                 </span>
                 <span class="testStatus">
-                    @gig.TestStatus.Name
+                    @test.Operator.NickName
                 </span>
             </div>
         </li>

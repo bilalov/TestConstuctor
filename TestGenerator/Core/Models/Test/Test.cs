@@ -34,11 +34,11 @@ namespace TestGenerator.Core.Models.Test
 
         public ICollection<Question> Questions { get; set; }
 
-        public ICollection<Passing> Passings { get; private set; }
+        public ICollection<PermissionForTest> Permissions { get; private set; }
 
         public Test()
         {
-            Passings = new Collection<Passing>();
+            Permissions = new Collection<PermissionForTest>();
         }
 
     }

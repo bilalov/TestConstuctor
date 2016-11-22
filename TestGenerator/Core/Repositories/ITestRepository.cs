@@ -9,5 +9,8 @@ namespace TestGenerator.Core.Repositories
         IEnumerable<Test> GetTestsByOperator(string operatorId);
         IEnumerable<Test> GetAllTest();
         IEnumerable<Test> GetActiveTests(string getUserId);
+        IEnumerable<Test> GetUnsolicitedTest(string userId);
+        IEnumerable<Test> GetSolicitedTest(string userId);
+        IEnumerable<Test> GetWaitingTest(string userId);
     }
 }

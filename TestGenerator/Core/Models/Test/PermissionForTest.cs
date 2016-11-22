@@ -3,11 +3,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TestGenerator.Core.Models.Test
 {
-    public class Passing
+    public class PermissionForTest
     {
         public Test Test { get; set; }
 
         public ApplicationUser User { get; set; }
+
+        public PermissionType Type { get; set; }
 
         [Key]
         [Column(Order = 1)]

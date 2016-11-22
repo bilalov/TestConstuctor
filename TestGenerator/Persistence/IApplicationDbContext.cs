@@ -10,6 +10,7 @@ namespace TestGenerator.Persistence
         DbSet<TestStatus> TestStatuses { get; set; }
         DbSet<QuestionType> QuestionTypes { get; set; }
         DbSet<Test> Tests { get; set; }
-        DbSet<Passing> Passings { get; set; }
+        DbSet<PermissionForTest> Permissions { get; set; }
+
     }
 }

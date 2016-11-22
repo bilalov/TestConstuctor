@@ -1,0 +1,62 @@
+﻿@using TestGenerator.Core.Models.Test
+@model TestGenerator.Core.ViewModels.TestsForUserViewModel
+@{
+    ViewBag.Title = "Solicite";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<table class="table table-striped table-condensed table-hover">
+    <tbody>
+    <tr>
+        <td>
+            @Html.ActionLink("Каталог тестов", "Unsolicite", "Tests")
+        </td>
+        <td style="width: 180px">
+            @Html.ActionLink("Доступные тесты", "Solicite", "Tests")
+        </td>
+    </tr>
+    </tbody>
+</table>
+<h3>Ожидающие рассмотрения тесты</h3>
+<div class="table-responsive">
+    <table class="table table-striped table-condensed table-hover">
+        <tr>
+            <th style="width: 430px;">
+                Название теста
+            </th>
+            <th style="width: 470px;">
+                Автор
+            </th>
+            <th>
+                Решать
+            </th>
+        </tr>
+        <tbody>
+            @foreach (var test in Model.Tests)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => test.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => test.Operator.NickName)
+                    </td>
+                    <td>
+                        @if (Model.Permissions.Contains(test.Id))
+                        {
+                            if (Model.Permissions[test.Id].ToList().FirstOrDefault().Type == PermissionType.InWait)
+                            {
+                                <span>В ожидании рассмотрения заявки</span>
+                            }
+                            else if (Model.Permissions[test.Id].ToList().FirstOrDefault().Type == PermissionType.AccessDenied)
+                            {
+                                <span>Доступ отклонен</span>
+                            }
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+

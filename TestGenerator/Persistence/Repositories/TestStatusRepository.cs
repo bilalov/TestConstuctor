@@ -7,9 +7,9 @@ namespace TestGenerator.Persistence.Repositories
 {
     public class TestStatusRepository: ITestStatusRepository
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IApplicationDbContext _context;
 
-        public TestStatusRepository(ApplicationDbContext context)
+        public TestStatusRepository(IApplicationDbContext context)
         {
             _context = context;
         }

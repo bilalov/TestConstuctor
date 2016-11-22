@@ -11,6 +11,7 @@ namespace TestGenerator.Core
         ITestStatusRepository TestStatuses { get; }
         IQuestionTypeRepository QuestionTypes { get; }
         IRoleRepository Roles { get; }
+        IPermissionRepository Permissions { get; }
         void Complete();
     }
 }

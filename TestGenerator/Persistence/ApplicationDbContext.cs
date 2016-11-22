@@ -12,7 +12,7 @@ namespace TestGenerator.Persistence
         public DbSet<TestStatus> TestStatuses { get; set; }
         public DbSet<QuestionType> QuestionTypes { get; set; }
         public DbSet<Test> Tests { get; set; } 
-        public DbSet<Passing> Passings { get; set; }
+        public DbSet<PermissionForTest> Permissions { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
@@ -27,9 +27,9 @@ namespace TestGenerator.Persistence
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Passing>().
+            modelBuilder.Entity<PermissionForTest>().
                 HasRequired(a => a.Test).
-                WithMany(g => g.Passings).
+                WithMany(g => g.Permissions).
                 WillCascadeOnDelete(false);
 
             base.OnModelCreating(modelBuilder);

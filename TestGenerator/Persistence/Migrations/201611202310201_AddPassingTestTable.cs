@@ -8,7 +8,7 @@ namespace TestGenerator.Migrations
         public override void Up()
         {
             CreateTable(
-                "dbo.Passings",
+                "dbo.Permissions",
                 c => new
                     {
                         TestId = c.Int(nullable: false),
@@ -24,11 +24,11 @@ namespace TestGenerator.Migrations
         
         public override void Down()
         {
-            DropForeignKey("dbo.Passings", "UserId", "dbo.AspNetUsers");
-            DropForeignKey("dbo.Passings", "TestId", "dbo.Tests");
-            DropIndex("dbo.Passings", new[] { "UserId" });
-            DropIndex("dbo.Passings", new[] { "TestId" });
-            DropTable("dbo.Passings");
+            DropForeignKey("dbo.Permissions", "UserId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.Permissions", "TestId", "dbo.Tests");
+            DropIndex("dbo.Permissions", new[] { "UserId" });
+            DropIndex("dbo.Permissions", new[] { "TestId" });
+            DropTable("dbo.Permissions");
         }
     }
 }

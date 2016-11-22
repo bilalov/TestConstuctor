@@ -210,6 +210,8 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AnswersController.cs" />
     <Compile Include="Controllers\api\AnswersController.cs" />
+    <Compile Include="Controllers\api\PermissionsController.cs" />
+    <Compile Include="Controllers\api\TestsController.cs" />
     <Compile Include="Controllers\api\UsersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -220,14 +222,16 @@
     <Compile Include="Core\IUnitOfWork.cs" />
     <Compile Include="Core\Models\ApplicationUser.cs" />
     <Compile Include="Core\Models\Role.cs" />
-    <Compile Include="Core\Models\Test\Passing.cs" />
+    <Compile Include="Core\Models\Test\PermissionForTest.cs" />
     <Compile Include="Core\Models\Test\Answer.cs" />
+    <Compile Include="Core\Models\Test\PermissionType.cs" />
     <Compile Include="Core\Models\Test\Question.cs" />
     <Compile Include="Core\Models\Test\QuestionType.cs" />
     <Compile Include="Core\Models\Test\Test.cs" />
     <Compile Include="Core\Models\Test\TestStatus.cs" />
     <Compile Include="Core\Repositories\IAnswerRepository.cs" />
     <Compile Include="Core\Repositories\IApplicationUserRepository.cs" />
+    <Compile Include="Core\Repositories\IPermissionRepository.cs" />
     <Compile Include="Core\Repositories\IQuestionRepository.cs" />
     <Compile Include="Core\Repositories\IQuestionTypeRepository.cs" />
     <Compile Include="Core\Repositories\IRoleRepository.cs" />
@@ -238,6 +242,7 @@
     <Compile Include="Core\ViewModels\ManageViewModels.cs" />
     <Compile Include="Core\ViewModels\QuestionFormViewModel.cs" />
     <Compile Include="Core\ViewModels\TestFormViewModel.cs" />
+    <Compile Include="Core\ViewModels\TestsForUserViewModel.cs" />
     <Compile Include="Core\ViewModels\TestsViewModel.cs" />
     <Compile Include="Core\ViewModels\UsersViewModel.cs" />
     <Compile Include="Core\ViewModels\UserViewModel.cs" />
@@ -282,10 +287,15 @@
     <Compile Include="Persistence\Migrations\201611202335599_AddColumnApproveInUserTable.Designer.cs">
       <DependentUpon>201611202335599_AddColumnApproveInUserTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Persistence\Migrations\201611220026573_AddPermissionToTestTable.cs" />
+    <Compile Include="Persistence\Migrations\201611220026573_AddPermissionToTestTable.Designer.cs">
+      <DependentUpon>201611220026573_AddPermissionToTestTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Persistence\Migrations\Configuration.cs" />
     <Compile Include="Persistence\ApplicationDbContext.cs" />
     <Compile Include="Persistence\Repositories\AnswerRepository.cs" />
     <Compile Include="Persistence\Repositories\ApplicationUserRepository.cs" />
+    <Compile Include="Persistence\Repositories\PermissionRepository.cs" />
     <Compile Include="Persistence\Repositories\QuestionRepository.cs" />
     <Compile Include="Persistence\Repositories\QuestionTypeRepository.cs" />
     <Compile Include="Persistence\Repositories\RoleRepository.cs" />
@@ -361,6 +371,9 @@
     <Content Include="Views\Home\Tests.cshtml" />
     <Content Include="Views\Account\Success.cshtml" />
     <Content Include="Views\Users\Sort.cshtml" />
+    <Content Include="Views\Tests\Solicite.cshtml" />
+    <Content Include="Views\Tests\Unsolicite.cshtml" />
+    <Content Include="Views\Tests\Waiting.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -397,6 +410,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Persistence\Migrations\201611202335599_AddColumnApproveInUserTable.resx">
       <DependentUpon>201611202335599_AddColumnApproveInUserTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Persistence\Migrations\201611220026573_AddPermissionToTestTable.resx">
+      <DependentUpon>201611220026573_AddPermissionToTestTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

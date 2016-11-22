@@ -52,7 +52,7 @@ namespace TestGenerator.Controllers
         }
 
         //
-        // GET: /Manage/Index
+        // GET: /Solicite/Index
         public async Task<ActionResult> Index(ManageMessageId? message)
         {
             ViewBag.StatusMessage =
@@ -77,7 +77,7 @@ namespace TestGenerator.Controllers
         }
 
         //
-        // POST: /Manage/RemoveLogin
+        // POST: /Solicite/RemoveLogin
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> RemoveLogin(string loginProvider, string providerKey)
@@ -101,14 +101,14 @@ namespace TestGenerator.Controllers
         }
 
         //
-        // GET: /Manage/AddPhoneNumber
+        // GET: /Solicite/AddPhoneNumber
         public ActionResult AddPhoneNumber()
         {
             return View();
         }
 
         //
-        // POST: /Manage/AddPhoneNumber
+        // POST: /Solicite/AddPhoneNumber
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> AddPhoneNumber(AddPhoneNumberViewModel model)
@@ -132,7 +132,7 @@ namespace TestGenerator.Controllers
         }
 
         //
-        // POST: /Manage/EnableTwoFactorAuthentication
+        // POST: /Solicite/EnableTwoFactorAuthentication
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> EnableTwoFactorAuthentication()
@@ -147,7 +147,7 @@ namespace TestGenerator.Controllers
         }
 
         //
-        // POST: /Manage/DisableTwoFactorAuthentication
+        // POST: /Solicite/DisableTwoFactorAuthentication
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DisableTwoFactorAuthentication()
@@ -162,7 +162,7 @@ namespace TestGenerator.Controllers
         }
 
         //
-        // GET: /Manage/VerifyPhoneNumber
+        // GET: /Solicite/VerifyPhoneNumber
         public async Task<ActionResult> VerifyPhoneNumber(string phoneNumber)
         {
             var code = await UserManager.GenerateChangePhoneNumberTokenAsync(User.Identity.GetUserId(), phoneNumber);
@@ -171,7 +171,7 @@ namespace TestGenerator.Controllers
         }
 
         //
-        // POST: /Manage/VerifyPhoneNumber
+        // POST: /Solicite/VerifyPhoneNumber
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> VerifyPhoneNumber(VerifyPhoneNumberViewModel model)
@@ -196,7 +196,7 @@ namespace TestGenerator.Controllers
         }
 
         //
-        // POST: /Manage/RemovePhoneNumber
+        // POST: /Solicite/RemovePhoneNumber
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> RemovePhoneNumber()
@@ -215,14 +215,14 @@ namespace TestGenerator.Controllers
         }
 
         //
-        // GET: /Manage/ChangePassword
+        // GET: /Solicite/ChangePassword
         public ActionResult ChangePassword()
         {
             return View();
         }
 
         //
-        // POST: /Manage/ChangePassword
+        // POST: /Solicite/ChangePassword
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ChangePassword(ChangePasswordViewModel model)
@@ -246,14 +246,14 @@ namespace TestGenerator.Controllers
         }
 
         //
-        // GET: /Manage/SetPassword
+        // GET: /Solicite/SetPassword
         public ActionResult SetPassword()
         {
             return View();
         }
 
         //
-        // POST: /Manage/SetPassword
+        // POST: /Solicite/SetPassword
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> SetPassword(SetPasswordViewModel model)
@@ -278,7 +278,7 @@ namespace TestGenerator.Controllers
         }
 
         //
-        // GET: /Manage/ManageLogins
+        // GET: /Solicite/ManageLogins
         public async Task<ActionResult> ManageLogins(ManageMessageId? message)
         {
             ViewBag.StatusMessage =
@@ -301,7 +301,7 @@ namespace TestGenerator.Controllers
         }
 
         //
-        // POST: /Manage/LinkLogin
+        // POST: /Solicite/LinkLogin
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult LinkLogin(string provider)
@@ -311,7 +311,7 @@ namespace TestGenerator.Controllers
         }
 
         //
-        // GET: /Manage/LinkLoginCallback
+        // GET: /Solicite/LinkLoginCallback
         public async Task<ActionResult> LinkLoginCallback()
         {
             var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync(XsrfKey, User.Identity.GetUserId());
