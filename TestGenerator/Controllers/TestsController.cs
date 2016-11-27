@@ -1,5 +1,6 @@
-﻿using Microsoft.AspNet.Identity;
-using System;
+﻿using AutoMapper;
+using Microsoft.AspNet.Identity;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using TestGenerator.Core;
@@ -21,11 +22,29 @@ namespace TestGenerator.Controllers
         [Authorize]
         public ActionResult Create()
         {
+            var questions = new List<QuestionFormViewModel>()
+            {
+                new QuestionFormViewModel()
+                {
+                    Text = "Первый вопрос",
+                    QuestionTypes = _unitOfWork.QuestionTypes.GetTypes(),
+                    Answers = new List<AnswerFormViewModel>()
+                    {
+                        new AnswerFormViewModel()
+                        {
+                            Caption = "Ответ 1",
+                            Value = false
+                        }
+                    }
+                }
+            };
             var viewModel = new TestFormViewModel
             {
                 Heading = "Создать тест",
                 TestStatuses = _unitOfWork.TestStatuses.GetStatuses(),
-                TypeQuestions = _unitOfWork.QuestionTypes.GetTypes()
+                TypeQuestions = _unitOfWork.QuestionTypes.GetTypes(),
+                Questions = questions
+               
             };
 
             return View("Create", viewModel);
@@ -44,14 +63,21 @@ namespace TestGenerator.Controllers
                 return View("Create", viewModel);
             }
 
-            var test = new Test
+            AutoMapper.Mapper.CreateMap<TestFormViewModel, Test>();
+            AutoMapper.Mapper.CreateMap<QuestionFormViewModel, Question>();
+            AutoMapper.Mapper.CreateMap<AnswerFormViewModel, Answer>();
+
+            var test = Mapper.Map<TestFormViewModel, Test>(viewModel);
+            test.OperatorId = User.Identity.GetUserId();
+
+            /*var test = new Test
             {
                 OperatorId = User.Identity.GetUserId(),
                 DateTime = DateTime.Now,
-                TestStatusId = viewModel.TestStatus,
+                TestStatusId = viewModel.TestStatusId,
                 Description = viewModel.Description,   
                 Name  = viewModel.Name
-            };
+            };*/
 
             _unitOfWork.Tests.Add(test);
             _unitOfWork.Complete();

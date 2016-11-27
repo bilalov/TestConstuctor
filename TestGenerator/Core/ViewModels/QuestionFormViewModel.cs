@@ -11,11 +11,10 @@ namespace TestGenerator.Core.ViewModels
         [Display(Name = "Текст вопроса:")]
         public string Text { get; set; }
 
-        [Display(Name = "Тип:")]
-        public QuestionType Type { get; set; }
+        public byte QuestionTypeId { get; set; }
 
         public IEnumerable<QuestionType> QuestionTypes { get; set; }
 
-        public ICollection<AnswerFormViewModel> Answers { get; set; }
+        public List<AnswerFormViewModel> Answers { get; set; } = new List<AnswerFormViewModel>();
     }
 }

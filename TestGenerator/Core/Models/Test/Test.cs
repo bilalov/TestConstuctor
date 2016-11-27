@@ -21,9 +21,9 @@ namespace TestGenerator.Core.Models.Test
 
         [StringLength(1000)]
         [Display(Name = "Описание теста:")]
-        public string Description { get; set; }
+        public string Description { get; set; } = string.Empty;
 
-        public DateTime DateTime { get; set; }
+        public DateTime DateTime { get; set; } = System.DateTime.Now;
 
         
         [Display(Name = "Статус теста::")]

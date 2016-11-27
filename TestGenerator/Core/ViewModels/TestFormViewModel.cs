@@ -11,7 +11,7 @@ namespace TestGenerator.Core.ViewModels
 
         [Required]
         [DisplayName("Статус теста:")]
-        public byte TestStatus { get; set; }
+        public byte TestStatusId { get; set; }
 
         public IEnumerable<TestStatus> TestStatuses { get; set; }
         public IEnumerable<QuestionType> TypeQuestions { get; set; }
@@ -25,6 +25,6 @@ namespace TestGenerator.Core.ViewModels
         [DisplayName("Описание теста:")]
         public string Description { get; set; }
 
-        public ICollection<QuestionFormViewModel> Questions { get; set; }
+        public List<QuestionFormViewModel> Questions { get; set; } = new List<QuestionFormViewModel>();
     }
 }
