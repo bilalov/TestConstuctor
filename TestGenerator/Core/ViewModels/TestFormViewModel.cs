@@ -1,6 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Linq.Expressions;
+using System.Web.Mvc;
+using TestGenerator.Controllers;
 using TestGenerator.Core.Models.Test;
 
 namespace TestGenerator.Core.ViewModels
@@ -8,6 +12,8 @@ namespace TestGenerator.Core.ViewModels
     public class TestFormViewModel
     {
         public string Heading { get; set; }
+
+        public int Id { get; set; }
 
         [Required]
         [DisplayName("Статус теста:")]
@@ -26,5 +32,20 @@ namespace TestGenerator.Core.ViewModels
         public string Description { get; set; }
 
         public List<QuestionFormViewModel> Questions { get; set; } = new List<QuestionFormViewModel>();
+
+        public string Action
+        {
+            get
+            {
+                Expression<Func<TestsController, ActionResult>> update =
+                    (c => c.Update(this));
+
+                Expression<Func<TestsController, ActionResult>> create =
+                    (c => c.Create(this));
+
+                var action = (Id != 0) ? update : create;
+                return (action.Body as MethodCallExpression).Method.Name;
+            }
+        }
     }
 }

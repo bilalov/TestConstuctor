@@ -4,27 +4,88 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Мои тесты</h2>
-<ul class="tests voffset4">
-    @foreach (var test in Model)
-    {
-        <li>
-            <div class="date">
-                <div class="month">
-                    @test.DateTime.ToString("MMM")
-                </div>
-                <div class="day">
-                    @test.DateTime.ToString("d ")
-                </div>
-            </div>
-            <div class="details">
-                <span class="testName">
-                    @test.Name
-                </span>
-                <span class="testStatus">
-                    @test.TestStatus.Name
-                </span>
-            </div>
-        </li>
-    }
-</ul>
+<h3>Мои тесты</h3>
+<div class="table-responsive">
+    <table class="table table-striped table-condensed table-hover">
+        <tr>
+            <th>
+                Название теста
+            </th>
+            
+        </tr>
+        <tbody>
+            @foreach (var test in Model)
+            {
+                <tr>
+
+                    <td>
+                        @test.Name
+                    </td>
+                    <td>
+                        @test.TestStatus.Name
+                    </td>
+                    <td>
+                        <a href="@Url.Action("Edit", "Tests", new {id = test.Id})">
+                            Статистика
+                        </a>
+                    </td>
+                    <td>
+                        <a href="@Url.Action("Edit", "Tests", new {id = test.Id})">
+                            Редактировать
+                        </a>
+                    </td>
+                    <td>
+                        <div class="actions">
+                            <a href="#" class="js-remove-test" data-test-id="@test.Id">
+                                Удалить
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $(".js-remove-test").click(function (e) {
+                var link = $(e.target);
+
+                bootbox.dialog({
+                    message: "Удалить тест?",
+                    title: "Confirm",
+                    buttons: {
+                        no: {
+                            label: "Нет",
+                            className: "btn-default",
+                            callback: function () {
+                                bootbox.hideAll();
+                            }
+                        },
+                        yes: {
+                            label: "Да",
+                            className: "btn-danger",
+                            callback: function () {
+                                $.ajax({
+                                    url: "/api/tests/" + link.attr("data-test-id"),
+                                    method: "DELETE"
+                                })
+                                .done(function () {
+                                    link.parents("tr").fadeOut(function () {
+                                        $(this).remove();
+                                    });
+                                })
+                                .fail(function () {
+                                    alert("Ошибка при выполнении");
+                                });
+                            }
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+}

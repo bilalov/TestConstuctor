@@ -146,7 +146,7 @@ h6,
     left: 70px;
 }
 
-    .tests > li .details .operator {
+    .tests > li .details .testName {
         font-weight: bold;
         display: block;
     }
@@ -204,3 +204,8 @@ h6,
     direction: ltr;
     cursor: pointer;
 }
+
+ .wide {
+     width: 500px;
+     max-width: 500px;
+ }

@@ -6,21 +6,21 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Создать тест</h2>
-
-@using (Html.BeginForm("Create", "Tests"))
+<h2>@Model.Heading</h2>
+@using (Html.BeginForm(Model.Action, "Tests"))
 {
     @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.Id)
     <div class="form-group">
         @Html.LabelFor(m => m.Name)
-        @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+        @Html.TextBoxFor(m => m.Name, new { @class = "form-control wide" })
         @Html.ValidationMessageFor(m => m.Name)
     </div>
     <div id="phoneList">
         @for (int i = 0; i < @Model.Questions.Count; i++)
         {
             <div class="phoneRow">
-                @Html.TextBoxFor(model => Model.Questions[i].Text)
+                @Html.TextBoxFor(model => Model.Questions[i].Text, new { @class = "wide" })
                 @Html.DropDownListFor(m => Model.Questions[i].QuestionTypeId, new SelectList(Model.TypeQuestions, "Id", "Name"))
                 <span class="btn btn-success fileinput-button">
                     <span>Image</span>
@@ -34,7 +34,7 @@
                         <div class="@sd">
                             <label>
                                 @Html.CheckBoxFor(m => @Model.Questions[i].Answers[j].Value)
-                                @Html.TextBoxFor(model => Model.Questions[i].Answers[j].Caption, new { @class = "phoneNumber" })
+                                @Html.TextBoxFor(model => Model.Questions[i].Answers[j].Caption, new { @class = "wide" })
                             </label>
                          
                             <a href="javascript:void(0);" class="addAnswer">Добавить ответ</a>
@@ -65,7 +65,7 @@
 
             $(".addRow").click(function () {
                 var rowCount = $('.phoneRow').length;
-                $("#phoneList").append('<div class="phoneRow"><input type="text" name="Questions[' + rowCount + '].Text" />' +
+                $("#phoneList").append('<div class="phoneRow"><input class="wide" type="text" name="Questions[' + rowCount + '].Text" />' +
                     '<select id="Questions_' + rowCount + '__QuestionTypeId" name="Questions[' + rowCount + '].QuestionTypeId" class="phoneType">'
                    + '<option value="1">Выбрать ответ</option>'
                    + '<option value="2">Написать ответ</option>'
@@ -96,9 +96,9 @@
                     '<input data-val="true" data-val-required="The Правильный: field is required." ' +
                     'id="Questions_' + parentss + '__Answers_' + rowCount + '__Value" name="Questions[' + parentss + '].Answers[' + rowCount + '].Value"' +
                     ' type="checkbox" value="true">' +
-                    '<input class="phoneNumber" data-val="true" data-val-length="The field Текст: must be a string with a maximum length of 100." data-val-length-max="100" data-val-required="The Текст: field is required." ' +
+                    '<input class="wide" data-val="true" data-val-length="The field Текст: must be a string with a maximum length of 100." data-val-length-max="100" data-val-required="The Текст: field is required." ' +
                     'id="Questions_' + parentss + '__Answers_' + rowCount + '__Caption" name="Questions[' + parentss + '].Answers[' + rowCount + '].Caption" ' +
-                    'type="text" value="Answer'+pad+'"></label>'
+                    'type="text" value=""></label>'
                    + '</div>');
             });
 
@@ -106,36 +106,25 @@
 
 
             $(document).on('change', 'select', function () {
-                //  alert(this.value);
 
-                var par = $(this).parent().attr('class');
-                //var parentss = $(this).parent().attr('id');
                 var pad = 0;
-                //alert(sdf);
-                var par1 = "." + par;
                 $(this).parent().children("div").empty();
                 var rowCount = 0;
-                alert(this.value);
                 var parentss = $(this).parent().children("div").attr("id");
                 var pad = parentss + "0";
-                var padClass = "." + pad;
                 var rowCount = $(this).parent().children("div").length-1;
 
                 
                   if (this.value === "2") {
                    
                       //написать ответ
-                      //var parentss = $(this).parent().parent().attr('id');
-                    //  var pad = $(this).parent().attr('class');
-                     // var padClass = "." + pad;
-                     // var rowCount = $(padClass).length;
                       $(this).parent().children("div").append('<div class="'  +pad + '"><label>' +
                     '<input data-val="true" data-val-required="The Правильный: field is required." ' +
                     'id="Questions_' + parentss + '__Answers_' + rowCount + '__Value" name="Questions[' + parentss + '].Answers[' + rowCount + '].Value"' +
                     ' type="checkbox" value="true">' +
-                    '<input class="phoneNumber" data-val="true" data-val-length="The field Текст: must be a string with a maximum length of 100." data-val-length-max="100" data-val-required="The Текст: field is required." ' +
+                    '<input class="wide" data-val="true" data-val-length="The field Текст: must be a string with a maximum length of 100." data-val-length-max="100" data-val-required="The Текст: field is required." ' +
                     'id="Questions_' + parentss + '__Answers_' + rowCount + '__Caption" name="Questions[' + parentss + '].Answers[' + rowCount + '].Caption" ' +
-                    'type="text" value="Answer'+pad+'"></label>'
+                    'type="text" value=""></label>'
                    + '</div>');
   
                   } else if (this.value === '1') {
@@ -144,9 +133,9 @@
                     '<input data-val="true" data-val-required="The Правильный: field is required." ' +
                     'id="Questions_' + parentss + '__Answers_' + rowCount + '__Value" name="Questions[' + parentss + '].Answers[' + rowCount + '].Value"' +
                     ' type="checkbox" value="true">' +
-                    '<input class="phoneNumber" data-val="true" data-val-length="The field Текст: must be a string with a maximum length of 100." data-val-length-max="100" data-val-required="The Текст: field is required." ' +
+                    '<input class="wide" data-val="true" data-val-length="The field Текст: must be a string with a maximum length of 100." data-val-length-max="100" data-val-required="The Текст: field is required." ' +
                     'id="Questions_' + parentss + '__Answers_' + rowCount + '__Caption" name="Questions[' + parentss + '].Answers[' + rowCount + '].Caption" ' +
-                    'type="text" value="Answer'+pad+'"></label>'
+                    'type="text" value=""></label>'
                    + '</div>');
                   }
 

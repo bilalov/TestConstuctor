@@ -12,5 +12,8 @@ namespace TestGenerator.Core.Repositories
         IEnumerable<Test> GetUnsolicitedTest(string userId);
         IEnumerable<Test> GetSolicitedTest(string userId);
         IEnumerable<Test> GetWaitingTest(string userId);
+        Test GetTest(int id);
+        void Remove(Test test);
+        Test GetTestWithPermissions(int id);
     }
 }

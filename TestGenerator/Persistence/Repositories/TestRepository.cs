@@ -80,5 +80,29 @@ namespace TestGenerator.Persistence.Repositories
                .Include(t => t.Operator)
                .ToList();
         }
+
+        public Test GetTest(int id)
+        {
+            return _context.Tests
+                    .Include(t => t.Operator)
+                    .Include(t => t.Questions.Select(q => q.Answers))
+                    .Include(t => t.TestStatus)
+                    .SingleOrDefault(t => t.Id == id);
+        }
+
+        public Test GetTestWithPermissions(int id)
+        {
+            return _context.Tests
+                   .Include(t => t.Operator)
+                   .Include(t => t.Questions.Select(q => q.Answers))
+                   .Include(t => t.TestStatus)
+                   .Include(t => t.Permissions)
+                   .SingleOrDefault(t => t.Id == id);
+        }
+
+        public void Remove(Test test)
+        {
+            _context.Tests.Remove(test);
+        }
     }
 }

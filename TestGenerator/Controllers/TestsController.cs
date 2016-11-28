@@ -47,7 +47,7 @@ namespace TestGenerator.Controllers
                
             };
 
-            return View("Create", viewModel);
+            return View("TestForm", viewModel);
         }
 
         [Authorize]
@@ -60,7 +60,7 @@ namespace TestGenerator.Controllers
                 viewModel.Heading = "Создать тест";
                 viewModel.TestStatuses = _unitOfWork.TestStatuses.GetStatuses();
                 viewModel.TypeQuestions = _unitOfWork.QuestionTypes.GetTypes();
-                return View("Create", viewModel);
+                return View("TestForm", viewModel);
             }
 
             AutoMapper.Mapper.CreateMap<TestFormViewModel, Test>();
@@ -69,15 +69,6 @@ namespace TestGenerator.Controllers
 
             var test = Mapper.Map<TestFormViewModel, Test>(viewModel);
             test.OperatorId = User.Identity.GetUserId();
-
-            /*var test = new Test
-            {
-                OperatorId = User.Identity.GetUserId(),
-                DateTime = DateTime.Now,
-                TestStatusId = viewModel.TestStatusId,
-                Description = viewModel.Description,   
-                Name  = viewModel.Name
-            };*/
 
             _unitOfWork.Tests.Add(test);
             _unitOfWork.Complete();
@@ -140,6 +131,71 @@ namespace TestGenerator.Controllers
             };
 
             return View("Waiting", viewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Update(TestFormViewModel viewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View("TestForm", viewModel);
+            }
+
+            var test = _unitOfWork.Tests.GetTest(viewModel.Id);
+
+            if (test == null)
+                return HttpNotFound();
+
+            if (test.OperatorId != User.Identity.GetUserId())
+                return new HttpUnauthorizedResult();
+
+            AutoMapper.Mapper.CreateMap<TestFormViewModel, Test>();
+            AutoMapper.Mapper.CreateMap<QuestionFormViewModel, Question>();
+            AutoMapper.Mapper.CreateMap<AnswerFormViewModel, Answer>();
+
+            var test1 = Mapper.Map<TestFormViewModel, Test>(viewModel);
+            test1.OperatorId = User.Identity.GetUserId();
+
+            test.Modify(test1);
+
+            _unitOfWork.Complete();
+
+            return RedirectToAction("Mine", "Tests");
+        }
+
+        [Authorize]
+        public ActionResult Edit(int id)
+        {
+            var test = _unitOfWork.Tests.GetTest(id);
+
+            if (test == null)
+                return HttpNotFound();
+
+            if (test.OperatorId != User.Identity.GetUserId())
+                return new HttpUnauthorizedResult();
+
+            AutoMapper.Mapper.CreateMap<Test, TestFormViewModel>();
+            AutoMapper.Mapper.CreateMap<Question, QuestionFormViewModel>();
+            AutoMapper.Mapper.CreateMap<Answer, AnswerFormViewModel>();
+
+            var viewModel = Mapper.Map<Test, TestFormViewModel>(test);
+            viewModel.TypeQuestions = _unitOfWork.QuestionTypes.GetTypes();
+            viewModel.Heading = "Редактирование теста";
+            viewModel.TestStatuses = _unitOfWork.TestStatuses.GetStatuses();
+            viewModel.TypeQuestions = _unitOfWork.QuestionTypes.GetTypes();
+            /* var viewModel = new GigFormViewModel
+             {
+                 Heading = "Edit a Gig",
+                 Id = test.Id,
+                 Genres = _unitOfWork.Genres.GetGenres(),
+                 Date = test.DateTime.ToString("d MMM yyyy"),
+                 Time = test.DateTime.ToString("HH:mm"),
+                 Genre = test.GenreId,
+                 Venue = test.Venue
+             };*/
+
+            return View("TestForm", viewModel);
         }
     }
 }

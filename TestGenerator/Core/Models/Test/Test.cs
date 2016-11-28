@@ -41,5 +41,11 @@ namespace TestGenerator.Core.Models.Test
             Permissions = new Collection<PermissionForTest>();
         }
 
+        public void Modify(Test test)
+        {
+            Name = test.Name;
+            TestStatusId = test.TestStatusId;
+            Questions = test.Questions;
+        }
     }
 }

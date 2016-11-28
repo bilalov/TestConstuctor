@@ -4,26 +4,30 @@
 }
 <h1>@Model.Heading</h1>
 
-<ul id="tests" class="tests voffset4">
-    @foreach (var test in Model.Tests)
-    {
-        <li>
-            <div class="date">
-                <div class="month">
-                    @test.DateTime.ToString("MMM")
-                </div>
-                <div class="day">
-                    @test.DateTime.ToString("d ")
-                </div>
-            </div>
-            <div class="details">
-                <span class="operator">
-                     @test.Name
-                </span>
-                <span class="testStatus">
-                    @test.Operator.NickName
-                </span>
-            </div>
-        </li>
-    }
-</ul>
+<div class="table-responsive">
+    <table class="table table-striped table-condensed table-hover">
+        <tr>
+            <th>
+                Название теста
+            </th>
+            <th>
+                
+            </th>
+
+        </tr>
+        <tbody>
+            @foreach (var test in Model.Tests)
+            {
+                <tr>
+
+                    <td>
+                        @test.Name
+                    </td>
+                    <td>
+                        @test.Operator.NickName
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
