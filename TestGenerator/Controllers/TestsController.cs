@@ -19,7 +19,6 @@ namespace TestGenerator.Controllers
             _unitOfWork = unitOfWork;
         }
 
-        [Authorize]
         public ActionResult Create()
         {
             var questions = new List<QuestionFormViewModel>()
@@ -50,7 +49,14 @@ namespace TestGenerator.Controllers
             return View("TestForm", viewModel);
         }
 
-        [Authorize]
+        public ActionResult Passing()
+        {
+            
+
+            return View("TestForm", viewModel);
+        }
+
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(TestFormViewModel viewModel)
@@ -62,11 +68,6 @@ namespace TestGenerator.Controllers
                 viewModel.TypeQuestions = _unitOfWork.QuestionTypes.GetTypes();
                 return View("TestForm", viewModel);
             }
-
-            AutoMapper.Mapper.CreateMap<TestFormViewModel, Test>();
-            AutoMapper.Mapper.CreateMap<QuestionFormViewModel, Question>();
-            AutoMapper.Mapper.CreateMap<AnswerFormViewModel, Answer>();
-
             var test = Mapper.Map<TestFormViewModel, Test>(viewModel);
             test.OperatorId = User.Identity.GetUserId();
 
@@ -76,7 +77,6 @@ namespace TestGenerator.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        [Authorize]
         public ViewResult Mine()
         {
             var userId = User.Identity.GetUserId();
@@ -164,7 +164,7 @@ namespace TestGenerator.Controllers
             return RedirectToAction("Mine", "Tests");
         }
 
-        [Authorize]
+
         public ActionResult Edit(int id)
         {
             var test = _unitOfWork.Tests.GetTest(id);
@@ -175,25 +175,11 @@ namespace TestGenerator.Controllers
             if (test.OperatorId != User.Identity.GetUserId())
                 return new HttpUnauthorizedResult();
 
-            AutoMapper.Mapper.CreateMap<Test, TestFormViewModel>();
-            AutoMapper.Mapper.CreateMap<Question, QuestionFormViewModel>();
-            AutoMapper.Mapper.CreateMap<Answer, AnswerFormViewModel>();
-
             var viewModel = Mapper.Map<Test, TestFormViewModel>(test);
             viewModel.TypeQuestions = _unitOfWork.QuestionTypes.GetTypes();
             viewModel.Heading = "Редактирование теста";
             viewModel.TestStatuses = _unitOfWork.TestStatuses.GetStatuses();
             viewModel.TypeQuestions = _unitOfWork.QuestionTypes.GetTypes();
-            /* var viewModel = new GigFormViewModel
-             {
-                 Heading = "Edit a Gig",
-                 Id = test.Id,
-                 Genres = _unitOfWork.Genres.GetGenres(),
-                 Date = test.DateTime.ToString("d MMM yyyy"),
-                 Time = test.DateTime.ToString("HH:mm"),
-                 Genre = test.GenreId,
-                 Venue = test.Venue
-             };*/
 
             return View("TestForm", viewModel);
         }
