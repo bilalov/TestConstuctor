@@ -1,5 +1,5 @@
 ﻿@using TestGenerator.Core.Models.Test
-@model TestGenerator.Core.ViewModels.TestsForUserViewModel
+@model TestGenerator.Core.ViewModels.Test.TestsForUserViewModel
 @{
     ViewBag.Title = "Solicite";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -42,9 +42,7 @@
                 </td>
                 <td>
                     <div class="actions">
-                        <a href="#" class="js-add-user" data-user-id="@test.Id">
-                            Решить
-                        </a>
+                      @Html.ActionLink("Решить", "Passing", "Tests", new {id = test.Id}, null)
                     </div>
                 </td>
             </tr>

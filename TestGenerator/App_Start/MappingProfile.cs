@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using TestGenerator.Core.Models.Test;
 using TestGenerator.Core.ViewModels;
+using TestGenerator.Core.ViewModels.Test;
 
 namespace TestGenerator.App_Start
 {

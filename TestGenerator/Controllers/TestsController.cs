@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using TestGenerator.Core;
 using TestGenerator.Core.Models.Test;
 using TestGenerator.Core.ViewModels;
+using TestGenerator.Core.ViewModels.Test;
 
 namespace TestGenerator.Controllers
 {
@@ -49,11 +50,26 @@ namespace TestGenerator.Controllers
             return View("TestForm", viewModel);
         }
 
-        public ActionResult Passing()
+        public ActionResult Passing(int id)
         {
-            
+            var test = _unitOfWork.Tests.GetTestWithPermissions(id);
 
-            return View("TestForm", viewModel);
+            if (test == null)
+                return HttpNotFound();
+
+            if (test.TestStatus.Name != "Опубликовано")
+                return new HttpUnauthorizedResult();
+
+            var userId = User.Identity.GetUserId();
+
+            if (test.Permissions.SingleOrDefault(t=>t.UserId == userId) == null)
+                return new HttpUnauthorizedResult();
+
+            var viewModel = Mapper.Map<Test, TestFormViewModel>(test);
+            viewModel.Heading = "Прохождение теста";
+            viewModel.TypeQuestions = _unitOfWork.QuestionTypes.GetTypes();
+
+            return View("Passing", viewModel);
         }
 
 
@@ -150,9 +166,7 @@ namespace TestGenerator.Controllers
             if (test.OperatorId != User.Identity.GetUserId())
                 return new HttpUnauthorizedResult();
 
-            AutoMapper.Mapper.CreateMap<TestFormViewModel, Test>();
-            AutoMapper.Mapper.CreateMap<QuestionFormViewModel, Question>();
-            AutoMapper.Mapper.CreateMap<AnswerFormViewModel, Answer>();
+            
 
             var test1 = Mapper.Map<TestFormViewModel, Test>(viewModel);
             test1.OperatorId = User.Identity.GetUserId();
@@ -182,6 +196,30 @@ namespace TestGenerator.Controllers
             viewModel.TypeQuestions = _unitOfWork.QuestionTypes.GetTypes();
 
             return View("TestForm", viewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult GetResults(TestFormViewModel viewModel)
+        {
+            var test = _unitOfWork.Tests.GetTestWithPermissions(viewModel.Id);
+
+            if (test == null)
+                return HttpNotFound();
+
+            if (test.TestStatus.Id != 1)
+                return new HttpUnauthorizedResult();
+
+            var userId = User.Identity.GetUserId();
+
+            if (test.Permissions.SingleOrDefault(t => t.UserId == userId) == null)
+                return new HttpUnauthorizedResult();
+
+            var test1 = Mapper.Map<TestFormViewModel, Test>(viewModel);
+
+            test.CalculateMatch(test1);
+
+            return RedirectToAction("Results", "Tests");
         }
     }
 }

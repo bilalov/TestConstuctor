@@ -1,6 +1,6 @@
 ﻿@using TestGenerator.Core.Models.Test
 @using TestGenerator.Core.ViewModels
-@model TestGenerator.Core.ViewModels.TestFormViewModel
+@model TestGenerator.Core.ViewModels.Test.TestFormViewModel
 @{
     ViewBag.Title = @Model.Heading;
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -36,8 +36,11 @@
                                 @Html.CheckBoxFor(m => @Model.Questions[i].Answers[j].Value)
                                 @Html.TextBoxFor(model => Model.Questions[i].Answers[j].Caption, new { @class = "wide" })
                             </label>
-                         
-                            <a href="javascript:void(0);" class="addAnswer">Добавить ответ</a>
+                            @if (j == 0)
+                            {
+                                <a href="javascript:void(0);" class="addAnswer">Добавить ответ</a>
+                            }
+                           
                         </div>
                     }
                 </div>

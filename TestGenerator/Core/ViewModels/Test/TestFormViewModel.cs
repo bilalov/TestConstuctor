@@ -7,7 +7,7 @@ using System.Web.Mvc;
 using TestGenerator.Controllers;
 using TestGenerator.Core.Models.Test;
 
-namespace TestGenerator.Core.ViewModels
+namespace TestGenerator.Core.ViewModels.Test
 {
     public class TestFormViewModel
     {

@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using TestGenerator.Core.Models.Test;
 
-namespace TestGenerator.Core.ViewModels
+namespace TestGenerator.Core.ViewModels.Test
 {
     public class QuestionFormViewModel
     {

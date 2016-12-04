@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using TestGenerator.Core;
 using TestGenerator.Core.ViewModels;
+using TestGenerator.Core.ViewModels.Test;
 
 namespace TestGenerator.Controllers
 {

@@ -47,5 +47,10 @@ namespace TestGenerator.Core.Models.Test
             TestStatusId = test.TestStatusId;
             Questions = test.Questions;
         }
+
+        public int CalculateMatch(Test test1)
+        {
+            return 0;
+        }
     }
 }

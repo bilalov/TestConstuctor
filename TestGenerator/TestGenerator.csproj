@@ -244,10 +244,11 @@
     <Compile Include="Core\ViewModels\AnswerFormViewModel.cs" />
     <Compile Include="Core\ViewModels\ManageViewModels.cs" />
     <Compile Include="Core\ViewModels\PermissionsViewModel.cs" />
-    <Compile Include="Core\ViewModels\QuestionFormViewModel.cs" />
-    <Compile Include="Core\ViewModels\TestFormViewModel.cs" />
-    <Compile Include="Core\ViewModels\TestsForUserViewModel.cs" />
-    <Compile Include="Core\ViewModels\TestsViewModel.cs" />
+    <Compile Include="Core\ViewModels\Test\Passing\PassingTestViewModel.cs" />
+    <Compile Include="Core\ViewModels\Test\QuestionFormViewModel.cs" />
+    <Compile Include="Core\ViewModels\Test\TestFormViewModel.cs" />
+    <Compile Include="Core\ViewModels\Test\TestsForUserViewModel.cs" />
+    <Compile Include="Core\ViewModels\Test\TestsViewModel.cs" />
     <Compile Include="Core\ViewModels\UsersViewModel.cs" />
     <Compile Include="Core\ViewModels\UserViewModel.cs" />
     <Compile Include="Extensions\IdentityExtensions.cs" />
@@ -380,6 +381,8 @@
     <Content Include="Views\Tests\Unsolicite.cshtml" />
     <Content Include="Views\Tests\Waiting.cshtml" />
     <Content Include="Views\Permissions\Index.cshtml" />
+    <Content Include="Views\Tests\Passing.cshtml" />
+    <Content Include="Views\Tests\Results.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,65 @@
+﻿@using TestGenerator.Core.Models.Test
+@using TestGenerator.Core.ViewModels
+@model TestGenerator.Core.ViewModels.Test.TestFormViewModel
+@{
+    ViewBag.Title = "Прохождение теста";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Model.Name</h2>
+@using (Html.BeginForm("GetResults", "Tests"))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.Id)
+    @Html.HiddenFor(m => m.Name)
+    @Html.HiddenFor(m => m.TestStatusId)
+    <div id="phoneList">
+        @for (int i = 0; i < @Model.Questions.Count; i++)
+        {
+            @Html.HiddenFor(m => @Model.Questions[i].QuestionTypeId)
+            @Html.HiddenFor(m => @Model.Questions[i].Text)
+            <div class="phoneRow">
+                <p class="bg-primary">
+                    <label><span name="Model.Questions[@i].Text">@Model.Questions[i].Text</span></label>
+                </p>
+                
+                @if (Model.Questions[i].QuestionTypeId == 1)
+                {
+                    <div>Выберите один или несколько вариантов ответа</div>
+                }
+                else if (Model.Questions[i].QuestionTypeId == 2)
+                {
+                    <div>Напишите ответ</div>
+                }
+                <div id="@i" class="answers">
+                    @for (int j = 0; j < @Model.Questions[i].Answers.Count; j++)
+                    {
+                        Model.Questions[i].Answers[j].Value = false;
+                        @Html.HiddenFor(m => @Model.Questions[i].Answers[j].Caption)
+
+                        if (Model.Questions[i].QuestionTypeId == 1)
+                        {
+                            string sd = i.ToString() + j.ToString();
+                            <div class="@sd">
+                                
+                                    @Html.CheckBoxFor(m => @Model.Questions[i].Answers[j].Value)
+                                    <span name="Model.Questions[@i].Answers[@j].Caption">@Model.Questions[i].Answers[j].Caption</span>
+                                    
+                            </div>
+                        }
+                        else if (Model.Questions[i].QuestionTypeId == 2)
+                        {
+                            Model.Questions[i].Answers[j].Caption = string.Empty;
+                            @Html.TextBoxFor(model => Model.Questions[i].Answers[j].Caption, new {@class = "wide"})
+                        }
+
+
+                    }
+                </div>
+
+            </div>
+
+        }
+    </div>
+    <button type="submit" class="btn btn-primary">Завершить тест</button>
+}
