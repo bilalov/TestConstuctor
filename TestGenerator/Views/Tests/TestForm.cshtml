@@ -24,9 +24,15 @@
                 @Html.DropDownListFor(m => Model.Questions[i].QuestionTypeId, new SelectList(Model.TypeQuestions, "Id", "Name"))
                 <span class="btn btn-success fileinput-button">
                     <span>Image</span>
-                    <input type="file" name="file">
+                    <input type="file" name="file" onchange="readURL(this);">
                 </span>
-                <a href="javascript:void(0);" class="remRow">Удалить</a>
+                <div id="image" style="display: none;" >
+                    <img id="blah" src="#" />
+                    <a href="javascript:void(deleteImage(this));" class="remRow">Удалить изображение</a>
+                </div>
+
+
+
                 <div id="@i" class="answers">
                     @for (int j = 0; j < @Model.Questions[i].Answers.Count; j++)
                     {
@@ -35,16 +41,17 @@
                             <label>
                                 @Html.CheckBoxFor(m => @Model.Questions[i].Answers[j].Value)
                                 @Html.TextBoxFor(model => Model.Questions[i].Answers[j].Caption, new { @class = "wide" })
+                             
                             </label>
                             @if (j == 0)
                             {
                                 <a href="javascript:void(0);" class="addAnswer">Добавить ответ</a>
                             }
-                           
+
                         </div>
                     }
                 </div>
-               
+
             </div>
 
         }
@@ -64,8 +71,35 @@
 {
     <script type="text/javascript">
 
+        //show image
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#image')
+                    .css({ display: "block" });
+
+                    $('#blah')
+                        .attr('src', e.target.result)
+                        .width(150)
+                        .height(200);
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function deleteImage(input) {
+
+            $('#image')
+            .css({ display: "none" });
+        }
+
         $(document).ready(function () {
 
+
+            //add question
             $(".addRow").click(function () {
                 var rowCount = $('.phoneRow').length;
                 $("#phoneList").append('<div class="phoneRow"><input class="wide" type="text" name="Questions[' + rowCount + '].Text" />' +
@@ -81,6 +115,8 @@
 
 
             });
+
+            //add answer
             $(document.body).on('click', '.addAnswer', function () {
                 var parentss = $(this).parent().parent().attr('id');
                 var pad = $(this).parent().attr('class');
@@ -88,13 +124,13 @@
                 var namecl = "." + parentss + pad;
                 var rowCount = $(padClass).length;
                 rowCount = $(this).parent().parent().children().length;
-                
+
 
                 var ids = "#" + parentss;
 
                 if (parentss !== '0')
                     rowCount--;
-              
+
                 $(ids).append('<div class="' + pad + '"><label>' +
                     '<input data-val="true" data-val-required="The Правильный: field is required." ' +
                     'id="Questions_' + parentss + '__Answers_' + rowCount + '__Value" name="Questions[' + parentss + '].Answers[' + rowCount + '].Value"' +
@@ -106,8 +142,12 @@
             });
 
 
+            //remove answer
+            $(document.body).on('click', '.removeAnswer', function () {
+               
+            });
 
-
+            //chage type answer
             $(document).on('change', 'select', function () {
 
                 var pad = 0;
@@ -115,35 +155,35 @@
                 var rowCount = 0;
                 var parentss = $(this).parent().children("div").attr("id");
                 var pad = parentss + "0";
-                var rowCount = $(this).parent().children("div").length-1;
+                var rowCount = $(this).parent().children("div").length - 1;
 
-                
-                  if (this.value === "2") {
-                   
-                      //написать ответ
-                      $(this).parent().children("div").append('<div class="'  +pad + '"><label>' +
-                    '<input data-val="true" data-val-required="The Правильный: field is required." ' +
-                    'id="Questions_' + parentss + '__Answers_' + rowCount + '__Value" name="Questions[' + parentss + '].Answers[' + rowCount + '].Value"' +
-                    ' type="checkbox" value="true">' +
-                    '<input class="wide" data-val="true" data-val-length="The field Текст: must be a string with a maximum length of 100." data-val-length-max="100" data-val-required="The Текст: field is required." ' +
-                    'id="Questions_' + parentss + '__Answers_' + rowCount + '__Caption" name="Questions[' + parentss + '].Answers[' + rowCount + '].Caption" ' +
-                    'type="text" value=""></label>'
-                   + '</div>');
-  
-                  } else if (this.value === '1') {
-                      //выбрать ответ
-                      $(this).parent().children("div").append('<div class="0"><a href="javascript:void(0);" class="addAnswer">Добавить ответ</a></div><div class="' + pad + '"><label>' +
-                    '<input data-val="true" data-val-required="The Правильный: field is required." ' +
-                    'id="Questions_' + parentss + '__Answers_' + rowCount + '__Value" name="Questions[' + parentss + '].Answers[' + rowCount + '].Value"' +
-                    ' type="checkbox" value="true">' +
-                    '<input class="wide" data-val="true" data-val-length="The field Текст: must be a string with a maximum length of 100." data-val-length-max="100" data-val-required="The Текст: field is required." ' +
-                    'id="Questions_' + parentss + '__Answers_' + rowCount + '__Caption" name="Questions[' + parentss + '].Answers[' + rowCount + '].Caption" ' +
-                    'type="text" value=""></label>'
-                   + '</div>');
-                  }
+
+                if (this.value === "2") {
+
+                    //написать ответ
+                    $(this).parent().children("div").append('<div class="' + pad + '"><label>' +
+                  '<input data-val="true" data-val-required="The Правильный: field is required." ' +
+                  'id="Questions_' + parentss + '__Answers_' + rowCount + '__Value" name="Questions[' + parentss + '].Answers[' + rowCount + '].Value"' +
+                  ' type="checkbox" value="true">' +
+                  '<input class="wide" data-val="true" data-val-length="The field Текст: must be a string with a maximum length of 100." data-val-length-max="100" data-val-required="The Текст: field is required." ' +
+                  'id="Questions_' + parentss + '__Answers_' + rowCount + '__Caption" name="Questions[' + parentss + '].Answers[' + rowCount + '].Caption" ' +
+                  'type="text" value=""></label>'
+                 + '</div>');
+
+                } else if (this.value === '1') {
+                    //выбрать ответ
+                    $(this).parent().children("div").append('<div class="0"><a href="javascript:void(0);" class="addAnswer">Добавить ответ</a></div><div class="' + pad + '"><label>' +
+                  '<input data-val="true" data-val-required="The Правильный: field is required." ' +
+                  'id="Questions_' + parentss + '__Answers_' + rowCount + '__Value" name="Questions[' + parentss + '].Answers[' + rowCount + '].Value"' +
+                  ' type="checkbox" value="true">' +
+                  '<input class="wide" data-val="true" data-val-length="The field Текст: must be a string with a maximum length of 100." data-val-length-max="100" data-val-required="The Текст: field is required." ' +
+                  'id="Questions_' + parentss + '__Answers_' + rowCount + '__Caption" name="Questions[' + parentss + '].Answers[' + rowCount + '].Caption" ' +
+                  'type="text" value=""></label>'
+                 + '</div>');
+                }
 
             });
-       
+
         });
 
     </script>

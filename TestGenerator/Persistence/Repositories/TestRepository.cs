@@ -63,12 +63,20 @@ namespace TestGenerator.Persistence.Repositories
 
         public IEnumerable<Test> GetSolicitedTest(string userId)
         {
-            return _context.Permissions
+            var result = _context.Permissions
                .Where(a => a.UserId == userId && a.Type == PermissionType.AccessAllowed)
                .Select(a => a.Test).Where(t => t.TestStatusId == 1)
                .Include(g => g.TestStatus)
                .Include(t => t.Operator)
-               .ToList();
+               .Select(b => new
+                {
+                    b,
+                    Results = b.Results.Where(p => p.UserId == userId)
+                })
+            .AsEnumerable()
+            .Select(x => x.b)
+            .ToList();
+            return result;
         }
 
         public IEnumerable<Test> GetWaitingTest(string userId)

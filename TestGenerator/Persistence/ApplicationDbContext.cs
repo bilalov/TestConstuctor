@@ -13,6 +13,7 @@ namespace TestGenerator.Persistence
         public DbSet<QuestionType> QuestionTypes { get; set; }
         public DbSet<Test> Tests { get; set; } 
         public DbSet<PermissionForTest> Permissions { get; set; }
+        public DbSet<TestResult> TestResults { get; set; } 
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
@@ -31,6 +32,11 @@ namespace TestGenerator.Persistence
                 HasRequired(a => a.Test).
                 WithMany(g => g.Permissions).
                 WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<TestResult>().
+              HasRequired(a => a.Test).
+              WithMany(g => g.Results).
+              WillCascadeOnDelete(false);
 
             base.OnModelCreating(modelBuilder);
         }

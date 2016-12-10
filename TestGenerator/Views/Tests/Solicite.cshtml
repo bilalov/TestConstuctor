@@ -24,7 +24,7 @@
                 Название теста
             </th>
             <th style="width: 470px;">
-                Автор
+                Оценка
             </th>
             <th>
                 Решать
@@ -38,7 +38,15 @@
                     @Html.DisplayFor(modelItem => test.Name)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => test.Operator.NickName)
+                    @if (test.Results.Count != 0)
+                    {
+                        @Html.DisplayFor(modelItem => test.Results.LastOrDefault().Evaluation)
+                    }
+                    else
+                    {
+                        <p>Нет оценки</p>
+                    }
+
                 </td>
                 <td>
                     <div class="actions">

@@ -11,7 +11,6 @@ namespace TestGenerator.Persistence
         public UnitOfWork(ApplicationDbContext context)
         {
             _context = context;
-            Answers = new AnswerRepository(context);
             QuestionTypes = new QuestionTypeRepository(context);
             Questions = new QuestionRepository(context);
             Users = new ApplicationUserRepository(context);
@@ -19,9 +18,10 @@ namespace TestGenerator.Persistence
             TestStatuses = new TestStatusRepository(context);    
             Roles = new RoleRepository(context);   
             Permissions = new PermissionRepository(context);  
+            TestResults = new TestResultRepository(context);
         }
 
-        public IAnswerRepository Answers { get; }
+        public ITestResult TestResults { get; set; }
         public IQuestionRepository Questions { get; }
         public IApplicationUserRepository Users { get; }
         public ITestRepository Tests { get; }

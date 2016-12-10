@@ -200,7 +200,7 @@ namespace TestGenerator.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult GetResults(TestFormViewModel viewModel)
+        public ActionResult Result(TestFormViewModel viewModel)
         {
             var test = _unitOfWork.Tests.GetTestWithPermissions(viewModel.Id);
 
@@ -217,9 +217,14 @@ namespace TestGenerator.Controllers
 
             var test1 = Mapper.Map<TestFormViewModel, Test>(viewModel);
 
-            test.CalculateMatch(test1);
+            var result = test.CalculateMatch(test1);
+            result.UserId = userId;
+            result.TestId = test.Id;
 
-            return RedirectToAction("Results", "Tests");
+            _unitOfWork.TestResults.Add(result);
+            _unitOfWork.Complete();
+
+            return View("Result", result);
         }
     }
 }

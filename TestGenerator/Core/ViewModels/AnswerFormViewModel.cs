@@ -4,6 +4,7 @@ namespace TestGenerator.Core.ViewModels
 {
     public class AnswerFormViewModel
     {
+        public int Id { get; set; }
 
         [Required]
         [StringLength(100)]

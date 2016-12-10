@@ -1,0 +1,10 @@
+﻿@model TestGenerator.Core.Models.Test.TestResult
+@{
+    ViewBag.Title = "Результаты прохождения теста";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Результаты прохождения теста</h2>
+<p>Правильных ответов: @Model.TrueAnswers</p>
+<p>Неправильных ответов: @(Model.AllAnswers - Model.TrueAnswers)</p>
+<p>Оценка: @Model.Evaluation</p>

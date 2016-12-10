@@ -18,6 +18,8 @@ namespace TestGenerator.Core.Models.Test
         [Display(Name = "Тип теста:")]
         public QuestionType QuestionType { get; set; }
 
-        public ICollection<Answer> Answers { get; set; } 
+        public byte[] Image { get; set; }
+
+        public IList<Answer> Answers { get; set; } 
     }
 }

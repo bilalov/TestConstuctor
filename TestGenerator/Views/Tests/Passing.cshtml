@@ -7,7 +7,7 @@
 }
 
 <h2>@Model.Name</h2>
-@using (Html.BeginForm("GetResults", "Tests"))
+@using (Html.BeginForm("Result", "Tests"))
 {
     @Html.AntiForgeryToken()
     @Html.HiddenFor(m => m.Id)
@@ -36,7 +36,7 @@
                     {
                         Model.Questions[i].Answers[j].Value = false;
                         @Html.HiddenFor(m => @Model.Questions[i].Answers[j].Caption)
-
+                        @Html.HiddenFor(m => @Model.Questions[i].Answers[j].Id)
                         if (Model.Questions[i].QuestionTypeId == 1)
                         {
                             string sd = i.ToString() + j.ToString();

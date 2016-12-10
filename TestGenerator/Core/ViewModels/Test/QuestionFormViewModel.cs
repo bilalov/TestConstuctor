@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Web;
 using TestGenerator.Core.Models.Test;
 
 namespace TestGenerator.Core.ViewModels.Test
@@ -14,6 +15,8 @@ namespace TestGenerator.Core.ViewModels.Test
         public byte QuestionTypeId { get; set; }
 
         public IEnumerable<QuestionType> QuestionTypes { get; set; }
+
+        public HttpPostedFileBase Image { get; set; }
 
         public List<AnswerFormViewModel> Answers { get; set; } = new List<AnswerFormViewModel>();
     }

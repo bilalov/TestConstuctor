@@ -231,8 +231,8 @@
     <Compile Include="Core\Models\Test\Question.cs" />
     <Compile Include="Core\Models\Test\QuestionType.cs" />
     <Compile Include="Core\Models\Test\Test.cs" />
+    <Compile Include="Core\Models\Test\TestResult.cs" />
     <Compile Include="Core\Models\Test\TestStatus.cs" />
-    <Compile Include="Core\Repositories\IAnswerRepository.cs" />
     <Compile Include="Core\Repositories\IApplicationUserRepository.cs" />
     <Compile Include="Core\Repositories\IPermissionRepository.cs" />
     <Compile Include="Core\Repositories\IQuestionRepository.cs" />
@@ -240,6 +240,7 @@
     <Compile Include="Core\Repositories\IRoleRepository.cs" />
     <Compile Include="Core\Repositories\ITestRepository.cs" />
     <Compile Include="Core\Repositories\ITestStatusRepository.cs" />
+    <Compile Include="Core\Repositories\ITestResult.cs" />
     <Compile Include="Core\ViewModels\AccountViewModels.cs" />
     <Compile Include="Core\ViewModels\AnswerFormViewModel.cs" />
     <Compile Include="Core\ViewModels\ManageViewModels.cs" />
@@ -297,15 +298,27 @@
     <Compile Include="Persistence\Migrations\201611220026573_AddPermissionToTestTable.Designer.cs">
       <DependentUpon>201611220026573_AddPermissionToTestTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Persistence\Migrations\201612041618154_AddImageToQuestionTable.cs" />
+    <Compile Include="Persistence\Migrations\201612041618154_AddImageToQuestionTable.Designer.cs">
+      <DependentUpon>201612041618154_AddImageToQuestionTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Persistence\Migrations\201612041803017_AddTestResultTable.cs" />
+    <Compile Include="Persistence\Migrations\201612041803017_AddTestResultTable.Designer.cs">
+      <DependentUpon>201612041803017_AddTestResultTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Persistence\Migrations\201612100846320_AddTestForeignKeyToTestResultTable.cs" />
+    <Compile Include="Persistence\Migrations\201612100846320_AddTestForeignKeyToTestResultTable.Designer.cs">
+      <DependentUpon>201612100846320_AddTestForeignKeyToTestResultTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Persistence\Migrations\Configuration.cs" />
     <Compile Include="Persistence\ApplicationDbContext.cs" />
-    <Compile Include="Persistence\Repositories\AnswerRepository.cs" />
     <Compile Include="Persistence\Repositories\ApplicationUserRepository.cs" />
     <Compile Include="Persistence\Repositories\PermissionRepository.cs" />
     <Compile Include="Persistence\Repositories\QuestionRepository.cs" />
     <Compile Include="Persistence\Repositories\QuestionTypeRepository.cs" />
     <Compile Include="Persistence\Repositories\RoleRepository.cs" />
     <Compile Include="Persistence\Repositories\TestRepository.cs" />
+    <Compile Include="Persistence\Repositories\TestResultRepository.cs" />
     <Compile Include="Persistence\Repositories\TestStatusRepository.cs" />
     <Compile Include="Persistence\UnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -383,6 +396,7 @@
     <Content Include="Views\Permissions\Index.cshtml" />
     <Content Include="Views\Tests\Passing.cshtml" />
     <Content Include="Views\Tests\Results.cshtml" />
+    <Content Include="Views\Tests\Result.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -422,6 +436,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Persistence\Migrations\201611220026573_AddPermissionToTestTable.resx">
       <DependentUpon>201611220026573_AddPermissionToTestTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Persistence\Migrations\201612041618154_AddImageToQuestionTable.resx">
+      <DependentUpon>201612041618154_AddImageToQuestionTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Persistence\Migrations\201612041803017_AddTestResultTable.resx">
+      <DependentUpon>201612041803017_AddTestResultTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Persistence\Migrations\201612100846320_AddTestForeignKeyToTestResultTable.resx">
+      <DependentUpon>201612100846320_AddTestForeignKeyToTestResultTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
