@@ -1,12 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Web;
+using System.IO;
 using TestGenerator.Core.Models.Test;
+using TestGenerator.Helpers;
 
 namespace TestGenerator.Core.ViewModels.Test
 {
-    public class QuestionFormViewModel
+    public class QuestionPassingViewModel
     {
+
         public int Id { get; set; }
 
         [Required]
@@ -18,12 +20,20 @@ namespace TestGenerator.Core.ViewModels.Test
 
         public IEnumerable<QuestionType> QuestionTypes { get; set; }
 
-        public HttpPostedFileBase Image { get; set; }
-
-        //public MemoryPostedFile Image2 { get; set; }
+        public MemoryPostedFile Image { get; set; }
 
         public List<AnswerFormViewModel> Answers { get; set; } = new List<AnswerFormViewModel>();
 
-        
+        public byte[] GetBytes()
+        {
+            byte[] imgData;
+
+            using (var reader = new BinaryReader(Image.InputStream))
+            {
+                imgData = reader.ReadBytes(Image.ContentLength);
+            }
+
+            return imgData;
+        }
     }
 }

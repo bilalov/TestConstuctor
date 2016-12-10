@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Linq.Expressions;
-using System.Web.Mvc;
-using TestGenerator.Controllers;
 using TestGenerator.Core.Models.Test;
 
 namespace TestGenerator.Core.ViewModels.Test
 {
-    public class TestFormViewModel
+    public class TestPassingViewModel
     {
         public string Heading { get; set; }
 
@@ -31,20 +27,6 @@ namespace TestGenerator.Core.ViewModels.Test
         [DisplayName("Описание теста:")]
         public string Description { get; set; }
 
-        public List<QuestionFormViewModel> Questions { get; set; } = new List<QuestionFormViewModel>();
-
-        public string Action
-        {
-            get
-            {
-                
-
-                Expression<Func<TestsController, ActionResult>> create =
-                    (c => c.Create(this));
-
-                var action = create;
-                return (action.Body as MethodCallExpression).Method.Name;
-            }
-        }
+        public List<QuestionPassingViewModel> Questions { get; set; } = new List<QuestionPassingViewModel>();
     }
 }

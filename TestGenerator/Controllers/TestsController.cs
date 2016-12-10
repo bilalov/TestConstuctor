@@ -65,7 +65,7 @@ namespace TestGenerator.Controllers
             if (test.Permissions.SingleOrDefault(t=>t.UserId == userId) == null)
                 return new HttpUnauthorizedResult();
 
-            var viewModel = Mapper.Map<Test, TestFormViewModel>(test);
+            var viewModel = Mapper.Map<Test, TestPassingViewModel>(test);
             viewModel.Heading = "Прохождение теста";
             viewModel.TypeQuestions = _unitOfWork.QuestionTypes.GetTypes();
 
@@ -155,7 +155,12 @@ namespace TestGenerator.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View("TestForm", viewModel);
+                viewModel.Heading = "Создать тест";
+                viewModel.TestStatuses = _unitOfWork.TestStatuses.GetStatuses();
+                viewModel.TypeQuestions = _unitOfWork.QuestionTypes.GetTypes();
+                var test2 = Mapper.Map<TestFormViewModel, Test>(viewModel);
+                var viewModel2 = Mapper.Map<Test, TestPassingViewModel>(test2);
+                return View("TestEdit", viewModel2);
             }
 
             var test = _unitOfWork.Tests.GetTest(viewModel.Id);
@@ -189,13 +194,13 @@ namespace TestGenerator.Controllers
             if (test.OperatorId != User.Identity.GetUserId())
                 return new HttpUnauthorizedResult();
 
-            var viewModel = Mapper.Map<Test, TestFormViewModel>(test);
+            var viewModel = Mapper.Map<Test, TestPassingViewModel>(test);
             viewModel.TypeQuestions = _unitOfWork.QuestionTypes.GetTypes();
             viewModel.Heading = "Редактирование теста";
             viewModel.TestStatuses = _unitOfWork.TestStatuses.GetStatuses();
             viewModel.TypeQuestions = _unitOfWork.QuestionTypes.GetTypes();
 
-            return View("TestForm", viewModel);
+            return View("TestEdit", viewModel);
         }
 
         [HttpPost]

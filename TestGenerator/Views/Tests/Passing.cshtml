@@ -1,9 +1,10 @@
 ﻿@using TestGenerator.Core.Models.Test
 @using TestGenerator.Core.ViewModels
-@model TestGenerator.Core.ViewModels.Test.TestFormViewModel
+@model TestGenerator.Core.ViewModels.Test.TestPassingViewModel
 @{
     ViewBag.Title = "Прохождение теста";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
 }
 
 <h2>@Model.Name</h2>
@@ -18,13 +19,22 @@
         {
             @Html.HiddenFor(m => @Model.Questions[i].QuestionTypeId)
             @Html.HiddenFor(m => @Model.Questions[i].Text)
+
             <div class="phoneRow">
                 <p class="bg-primary">
                     <label><span name="Model.Questions[@i].Text">@Model.Questions[i].Text</span></label>
                 </p>
-                
+                <div>
+                    @if (Model.Questions[i].Image != null)
+                    {
+                        
+                        <img style="width: 200px; height: 200px;" class="imag" src="data:image/jpg;base64,@Convert.ToBase64String(Model.Questions[i].GetBytes(),0,Model.Questions[i].Image.ContentLength)" on />
+                    }
+
+                </div>
                 @if (Model.Questions[i].QuestionTypeId == 1)
                 {
+
                     <div>Выберите один или несколько вариантов ответа</div>
                 }
                 else if (Model.Questions[i].QuestionTypeId == 2)
@@ -41,16 +51,16 @@
                         {
                             string sd = i.ToString() + j.ToString();
                             <div class="@sd">
-                                
-                                    @Html.CheckBoxFor(m => @Model.Questions[i].Answers[j].Value)
-                                    <span name="Model.Questions[@i].Answers[@j].Caption">@Model.Questions[i].Answers[j].Caption</span>
-                                    
+
+                                @Html.CheckBoxFor(m => @Model.Questions[i].Answers[j].Value)
+                                <span name="Model.Questions[@i].Answers[@j].Caption">@Model.Questions[i].Answers[j].Caption</span>
+
                             </div>
                         }
                         else if (Model.Questions[i].QuestionTypeId == 2)
                         {
                             Model.Questions[i].Answers[j].Caption = string.Empty;
-                            @Html.TextBoxFor(model => Model.Questions[i].Answers[j].Caption, new {@class = "wide"})
+                            @Html.TextBoxFor(model => Model.Questions[i].Answers[j].Caption, new { @class = "wide" })
                         }
 
 

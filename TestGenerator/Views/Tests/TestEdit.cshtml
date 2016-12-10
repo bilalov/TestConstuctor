@@ -1,13 +1,13 @@
 ﻿@using TestGenerator.Core.Models.Test
 @using TestGenerator.Core.ViewModels
-@model TestGenerator.Core.ViewModels.Test.TestFormViewModel
+@model TestGenerator.Core.ViewModels.Test.TestPassingViewModel
 @{
     ViewBag.Title = @Model.Heading;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>@Model.Heading</h2>
-@using (Html.BeginForm(Model.Action, "Tests", FormMethod.Post, new
+@using (Html.BeginForm("Update", "Tests", FormMethod.Post, new
 { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
@@ -21,15 +21,27 @@
         @for (int i = 0; i < @Model.Questions.Count; i++)
         {
             <div class="phoneRow">
-                @Html.TextBoxFor(model => Model.Questions[i].Text, new { @class = "wide" })
+                @Html.HiddenFor(m => @Model.Questions[i].Id)
+                @Html.TextBoxFor(model => Model.Questions[i].Text, new {@class = "wide"})
                 @Html.DropDownListFor(m => Model.Questions[i].QuestionTypeId, new SelectList(Model.TypeQuestions, "Id", "Name"))
-                @Html.TextBoxFor(m => Model.Questions[i].Image, new { type = "file" })
-                <span class="btn btn-success fileinput-button">
+                @Html.TextBoxFor(m => Model.Questions[i].Image, new { type = "file", @value = Model.Questions[i].Image.InputStream })
+                <!--<span class="btn btn-success fileinput-button">
                     <span>Image</span>
                     <input type="file" name="Questions[@i].Image" id="Questions[@i].Image" onchange="readURL(this);">
-                </span>
+                </span>-->
+                <div>
+                    @if (Model.Questions[i].Image != null)
+                    {
+
+                        <img id="Model.Questions[i]" style="width: 200px; height: 200px;" class="imag" src="data:image/jpg;base64,@Convert.ToBase64String(Model.Questions[i].GetBytes(), 0, Model.Questions[i].Image.ContentLength)" on/>
+                        <a href="javascript:void(deleteImage(@Model.Questions[i]));" class="remRow">Удалить изображение</a>
+                    }
+
+                </div>
+
+
                 <div id="image" style="display: none;">
-                    <img id="blah" src="#" />
+                    <img id="blah" src="#"/>
                     <a href="javascript:void(deleteImage(this));" class="remRow">Удалить изображение</a>
                 </div>
 
@@ -38,11 +50,12 @@
                 <div id="@i" class="answers">
                     @for (int j = 0; j < @Model.Questions[i].Answers.Count; j++)
                     {
+                        @Html.HiddenFor(m => @Model.Questions[i].Answers[j].Id)
                         string sd = i.ToString() + j.ToString();
                         <div class="@sd">
                             <label>
                                 @Html.CheckBoxFor(m => @Model.Questions[i].Answers[j].Value)
-                                @Html.TextBoxFor(model => Model.Questions[i].Answers[j].Caption, new { @class = "wide" })
+                                @Html.TextBoxFor(model => Model.Questions[i].Answers[j].Caption, new {@class = "wide"})
 
                             </label>
                             @if (j == 0)
