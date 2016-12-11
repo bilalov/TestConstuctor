@@ -401,6 +401,7 @@
     <Content Include="Views\Tests\Results.cshtml" />
     <Content Include="Views\Tests\Result.cshtml" />
     <Content Include="Views\Tests\TestEdit.cshtml" />
+    <Content Include="Views\Tests\Statistics.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
