@@ -31,6 +31,7 @@ namespace TestGenerator.Persistence.Repositories
 
         public IEnumerable<Test> GetAllTest()
         {
+
             var tests = _context.Tests
                 .Include(g => g.Operator)
                 .Include(g => g.TestStatus).ToList();
@@ -110,6 +111,7 @@ namespace TestGenerator.Persistence.Repositories
 
         public void Remove(Test test)
         {
+            _context.TestResults.RemoveRange(_context.TestResults.Where(x => x.TestId == test.Id));
             _context.Tests.Remove(test);
         }
     }
