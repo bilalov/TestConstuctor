@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -77,6 +78,22 @@ namespace TestGenerator.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
+                    var user = await UserManager.FindAsync(model.Email, model.Password);
+                    if (String.IsNullOrEmpty(returnUrl))
+                    {
+                        if (UserManager.IsInRole(user.Id, "Администратор"))
+                        {
+                            return RedirectToAction("Sort", "Users");
+                        }
+                        if (UserManager.IsInRole(user.Id, "Оператор"))
+                        {
+                            return RedirectToAction("Mine", "Tests");
+                        }
+                        if (UserManager.IsInRole(user.Id, "Пользователь"))
+                        {
+                            return RedirectToAction("Solicite", "Tests");
+                        }
+                    }  
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");

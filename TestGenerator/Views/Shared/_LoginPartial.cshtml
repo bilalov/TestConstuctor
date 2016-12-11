@@ -21,7 +21,7 @@
                         <li><a href="@Url.Action("Mine", "Tests")">Мои тесты</a></li>
                         <li>@Html.ActionLink("Запросы к моим тестам", "InWait", "Permissions")</li>
                     }
-                    else
+                    else if (@User.IsInRole("Пользователь"))
                     {
                         <li>@Html.ActionLink("Тесты", "Solicite", "Tests")</li>
                     }
