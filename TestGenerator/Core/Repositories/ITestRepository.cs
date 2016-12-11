@@ -15,5 +15,6 @@ namespace TestGenerator.Core.Repositories
         Test GetTest(int id);
         void Remove(Test test);
         Test GetTestWithPermissions(int id);
+        Test GetTestWithResults(int id);
     }
 }

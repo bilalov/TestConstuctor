@@ -1,10 +1,11 @@
 ﻿using System.Data.Entity.Migrations;
+using System.Linq;
 using TestGenerator.Core.Models.Test;
 using TestGenerator.Core.Repositories;
 
 namespace TestGenerator.Persistence.Repositories
 {
-    public class TestResultRepository:ITestResult
+    public class TestResultRepository:ITestResultRepository
     {
         private readonly IApplicationDbContext _context;
 
@@ -13,15 +14,30 @@ namespace TestGenerator.Persistence.Repositories
             _context = context;
         }
 
-
         public void Add(TestResult testResult)
         {
-            _context.TestResults.Add(testResult);
+            
         }
 
-        public void Update(TestResult testResult)
+        public void AddOrUpdate(TestResult testResult)
         {
-            _context.TestResults.AddOrUpdate(testResult);
+            var result = _context.TestResults
+                .Single(x => x.TestId == testResult.TestId && x.UserId == testResult.UserId);
+            if (result == null)
+            {
+                _context.TestResults.Add(testResult);
+            }
+            else
+            {
+                testResult.Id = result.Id;
+                _context.TestResults.AddOrUpdate(testResult);
+            }
+            
+        }
+
+        public TestResult Get(int testId, string userId)
+        {
+            return _context.TestResults.SingleOrDefault(x => x.TestId == testId && x.UserId == userId);
         }
     }
 }

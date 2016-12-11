@@ -1,0 +1,33 @@
+﻿@model TestGenerator.Core.ViewModels.Test.TestResultsViewModel
+@{
+    ViewBag.Title = "Статистика";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3>Статистика по тесту "@Model.TestName "</h3>
+
+<div class="table-responsive">
+    <table class="table table-striped table-condensed table-hover">
+        <tr>
+            <th>
+                Имя пользователя
+            </th>
+            <th>
+                Оценка
+            </th>
+        </tr>
+        <tbody>
+            @foreach (var result in Model.Result)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => result.UserName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => result.Evaluation)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

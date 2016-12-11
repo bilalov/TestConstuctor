@@ -21,7 +21,7 @@ namespace TestGenerator.Persistence
             TestResults = new TestResultRepository(context);
         }
 
-        public ITestResult TestResults { get; set; }
+        public ITestResultRepository TestResults { get; set; }
         public IQuestionRepository Questions { get; }
         public IApplicationUserRepository Users { get; }
         public ITestRepository Tests { get; }

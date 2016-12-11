@@ -4,7 +4,7 @@ using System.IO;
 using TestGenerator.Core.Models.Test;
 using TestGenerator.Helpers;
 
-namespace TestGenerator.Core.ViewModels.Test
+namespace TestGenerator.Core.ViewModels.Test.Passing
 {
     public class QuestionPassingViewModel
     {
