@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNet.Identity;
 using System.Web.Mvc;
 using TestGenerator.Core;
-using TestGenerator.Core.ViewModels;
 using TestGenerator.Core.ViewModels.Test;
 
 namespace TestGenerator.Controllers
@@ -30,18 +29,12 @@ namespace TestGenerator.Controllers
             return View("Tests", viewModel);
         }
 
-        public ActionResult About()
+       /* public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
 
             return View();
-        }
+        }*/
 
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
     }
 }

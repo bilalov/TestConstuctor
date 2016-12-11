@@ -4,6 +4,7 @@ using System.Web;
 using TestGenerator.Core.Models.Test;
 using TestGenerator.Core.ViewModels;
 using TestGenerator.Core.ViewModels.Test;
+using TestGenerator.Core.ViewModels.Test.Passing;
 using TestGenerator.Helpers;
 
 namespace TestGenerator.App_Start
@@ -34,7 +35,8 @@ namespace TestGenerator.App_Start
             AutoMapper.Mapper.CreateMap<byte[], MemoryPostedFile>()
                 .ConstructUsing(db => new MemoryPostedFile(db));
 
-        
+            AutoMapper.Mapper.CreateMap<TestResult, TestResultViewModel>()
+                .ForMember(x=>x.UserName, y=>y.MapFrom(t=>t.User.NickName));
         }
     }
 }

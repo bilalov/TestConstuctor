@@ -4,7 +4,7 @@ namespace TestGenerator.Core
 {
     public interface IUnitOfWork
     {
-        ITestResult TestResults { get; set; }
+        ITestResultRepository TestResults { get; set; }
         IQuestionRepository Questions { get; }
         IApplicationUserRepository Users { get; }
         ITestRepository Tests { get; }

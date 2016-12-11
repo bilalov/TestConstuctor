@@ -109,6 +109,15 @@ namespace TestGenerator.Persistence.Repositories
                    .SingleOrDefault(t => t.Id == id);
         }
 
+        public Test GetTestWithResults(int id)
+        {
+            return _context.Tests
+                   .Include(t => t.Operator)
+                   .Include(t => t.TestStatus)
+                   .Include(t => t.Results.Select(r=>r.User))
+                   .SingleOrDefault(t => t.Id == id);
+        }
+
         public void Remove(Test test)
         {
             _context.TestResults.RemoveRange(_context.TestResults.Where(x => x.TestId == test.Id));

@@ -7,6 +7,7 @@ using TestGenerator.Core;
 using TestGenerator.Core.Models.Test;
 using TestGenerator.Core.ViewModels;
 using TestGenerator.Core.ViewModels.Test;
+using TestGenerator.Core.ViewModels.Test.Passing;
 
 namespace TestGenerator.Controllers
 {
@@ -222,14 +223,37 @@ namespace TestGenerator.Controllers
 
             var test1 = Mapper.Map<TestFormViewModel, Test>(viewModel);
 
+
             var result = test.CalculateMatch(test1);
             result.UserId = userId;
             result.TestId = test.Id;
 
-            _unitOfWork.TestResults.Add(result);
+            _unitOfWork.TestResults.AddOrUpdate(result);
             _unitOfWork.Complete();
 
             return View("Result", result);
+        }
+
+        public ActionResult Statistics(int id)
+        {
+            var test = _unitOfWork.Tests.GetTestWithResults(id);
+
+            if (test == null)
+                return HttpNotFound();
+
+            if (test.OperatorId != User.Identity.GetUserId())
+                return new HttpUnauthorizedResult();
+
+            var viewModel = new TestResultsViewModel();
+            viewModel.TestName = test.Name;
+            foreach (var result in test.Results)
+            {
+                viewModel.Result.Add(Mapper.Map<TestResult, TestResultViewModel>(result));
+            }
+
+          
+
+            return View("Statistics", viewModel);
         }
     }
 }

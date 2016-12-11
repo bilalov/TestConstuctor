@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using TestGenerator.Core.Models.Test;
 
-namespace TestGenerator.Core.ViewModels.Test
+namespace TestGenerator.Core.ViewModels.Test.Passing
 {
     public class TestPassingViewModel
     {
